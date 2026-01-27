@@ -54,20 +54,20 @@ namespace Namespace
         {
             public List<string> ReadWords()
             {
-                var textLineList = new List<string> { };
-                var wordsList = new List<string> { };
-                textLineList = File.ReadAllLines(filePath).ToList();
-                foreach (string textLine in textLineList)
-                {
+                var words = new HashSet<string>();
+
+
+                var textLines = new List<string> { };
+                textLines = File.ReadAllLines(filePath).ToList();
+                foreach (string textLine in textLines)
+                {   
                     foreach (string word in textLine.Split())
                     {
-                        var lowercaseWord = word.ToLower();
-                        if (!wordsList.Contains(lowercaseWord))
-                            wordsList.Add(lowercaseWord);
+                        words.Add(word.ToLower());
                     }
                 }
 
-                return wordsList;
+                return words.ToList();
             }
         }
 
