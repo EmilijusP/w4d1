@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AngramSolver.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f84ce65479ea5ed6f87776b1218a4f0db780746")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b56c09ae299d9326182a2be5e47686d76c074b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("AngramSolver.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AngramSolver.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

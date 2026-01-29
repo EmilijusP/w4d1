@@ -17,14 +17,14 @@ namespace AnagramSolver.BusinessLogic.Services
 
         public AnagramSolverLogic(
             IWordProcessor wordProcessor,
-            IAnagramDictionaryService anagramDictionary,
+            IAnagramDictionaryService anagramDictionaryService,
             IAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
             int anagramCount
             )
         {
             _wordProcessor = wordProcessor;
-            _anagramDictonaryService = anagramDictionary;
+            _anagramDictonaryService = anagramDictionaryService;
             _anagramAlgorithm = anagramAlgorithm;
             _wordRepository = wordRepository;
             _anagramCount = anagramCount;
@@ -36,7 +36,9 @@ namespace AnagramSolver.BusinessLogic.Services
 
             var inputCharCount = _wordProcessor.CreateCharCount(cleanInput);
 
-            var allAnagrams = _anagramDictonaryService.CreateAnagrams(_wordRepository.GetWords());
+            var wordSet = _wordRepository.GetWords();
+
+            var allAnagrams = _anagramDictonaryService.CreateAnagrams(wordSet);
             
             var possibleAnagrams = allAnagrams.Where(key => _anagramAlgorithm.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
 

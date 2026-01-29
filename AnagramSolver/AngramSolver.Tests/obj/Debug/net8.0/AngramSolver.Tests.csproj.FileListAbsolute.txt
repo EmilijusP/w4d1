@@ -108,3 +108,4 @@ C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AngramSolver.Tests\bin\
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AngramSolver.Tests\bin\Debug\net8.0\AnagramSolver.Contracts.dll
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AngramSolver.Tests\bin\Debug\net8.0\AnagramSolver.BusinessLogic.pdb
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AngramSolver.Tests\bin\Debug\net8.0\AnagramSolver.Contracts.pdb
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AngramSolver.Tests\bin\Debug\net8.0\FluentAssertions.dll
