@@ -39,7 +39,9 @@ namespace AnagramSolver.BusinessLogic.Services
                     dictionary[key].Words.Add(word);
             }
 
-            return dictionary.Values.ToList();
+            var result = dictionary.Values.ToList();
+
+            return result;
         }
     }
 }
