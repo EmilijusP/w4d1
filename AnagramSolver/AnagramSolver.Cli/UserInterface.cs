@@ -11,12 +11,12 @@ namespace AnagramSolver.Cli
     public class UserInterface
     {
         private readonly int _minWordLength;
-        private InputValidation _wordsValidation;
+        private InputValidation _inputValidation;
 
-        public UserInterface(int minWordLength, InputValidation wordsValidation)
+        public UserInterface(int minWordLength, InputValidation inputValidation)
         {
             _minWordLength = minWordLength;
-            _wordsValidation = wordsValidation;
+            _inputValidation = inputValidation;
         }
 
         public string ReadInput()
@@ -25,7 +25,7 @@ namespace AnagramSolver.Cli
             {
                 Console.WriteLine($"Enter the word/words containing {_minWordLength} letters or more: ");
                 var input = Console.ReadLine();
-                if (_wordsValidation.IsValidInput(input, _minWordLength))
+                if (_inputValidation.IsValidInput(input, _minWordLength))
                 {
                     return input;
                 }

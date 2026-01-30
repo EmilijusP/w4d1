@@ -2,5 +2,5 @@
   <Project Path="AnagramSolver.BusinessLogic/AnagramSolver.BusinessLogic.csproj" />
   <Project Path="AnagramSolver.Cli/AnagramSolver.Cli.csproj" />
   <Project Path="AnagramSolver.Contracts/AnagramSolver.Contracts.csproj" />
-  <Project Path="AngramSolver.Tests/AngramSolver.Tests.csproj" Id="a07df407-318d-4e43-b7b4-58700e548696" />
+  <Project Path="AngramSolver.Tests/AnagramSolver.Tests.csproj" Id="a07df407-318d-4e43-b7b4-58700e548696" />
 </Solution>

@@ -4,7 +4,7 @@
     {
         public int AnagramCount { get; set; }
 
-        public int MinWordLength { get; set; }
+        public int MinInputWordsLength { get; set; }
 
         public string FilePath { get; set; } = string.Empty;
     }

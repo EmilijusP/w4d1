@@ -5714,9 +5714,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\AngramSolver.Tests.csproj",
-      "projectName": "AngramSolver.Tests",
-      "projectPath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\AngramSolver.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\AnagramSolver.Tests.csproj",
+      "projectName": "AnagramSolver.Tests",
+      "projectPath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\AnagramSolver.Tests.csproj",
       "packagesPath": "C:\\Users\\emilijus.pocius\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AngramSolver.Tests\\obj\\",
       "projectStyle": "PackageReference",
