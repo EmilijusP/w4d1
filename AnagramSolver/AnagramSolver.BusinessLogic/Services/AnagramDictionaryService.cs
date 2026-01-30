@@ -50,7 +50,7 @@ namespace AnagramSolver.BusinessLogic.Services
             var anagram = new Anagram
             {
                 Key = key,
-                KeyCharCount = _wordProcessor.CreateCharCount(word),
+                KeyCharCount = _wordProcessor.CreateCharCount(key),
                 Words = new List<string> { word }
             };
 
