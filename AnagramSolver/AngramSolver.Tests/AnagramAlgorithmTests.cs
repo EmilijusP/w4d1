@@ -215,12 +215,12 @@ public class AnagramAlgorithmTests
     [InlineData("test", 3, true)]
     [InlineData("test", 4, true)]
     [InlineData("test", 5, false)]
-    public void IsValidOutputLength(string key, int minOutputWordsLength, bool expectedOutput)
+    public void IsValidOutputLength(string key, int minOutputWordsLength, bool expectedResult)
     {
         //arrange
 
         //act
-        var result = _anagramAlgorithm.IsValidOutputLength(key, minOutputWordsLength, expectedOutput);
+        var result = _anagramAlgorithm.IsValidOutputLength(key, minOutputWordsLength);
 
         //assert
         result.Should().Be(expectedResult);

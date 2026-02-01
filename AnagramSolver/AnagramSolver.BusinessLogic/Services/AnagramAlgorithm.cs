@@ -110,5 +110,10 @@ namespace AnagramSolver.BusinessLogic.Services
             foreach (var character in key)
                 charCountDictionary[character]++;
         }
+
+        public bool IsValidOutputLength(string key, int minOutputWordLength)
+        {
+
+        }
     }
 }
