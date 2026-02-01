@@ -14,7 +14,7 @@ public class AnagramAlgorithmTests
         _anagramAlgorithm = new AnagramAlgorithm();
     }
 
-    public static IEnumerable<object[]> GetAnagramCombinationsTestData()
+    public static IEnumerable<object[]> GetFindKeyCombinationsTestData()
     {
         var targetLetters = new Dictionary<char, int>
         {
@@ -76,7 +76,7 @@ public class AnagramAlgorithmTests
     }
 
     [Theory]
-    [MemberData(nameof(GetAnagramCombinationsTestData))]
+    [MemberData(nameof(GetFindKeyCombinationsTestData))]
     public void FindKeyCombinations_VariousInputs_ReturnsExpectedResult(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams, List<List<string>> expectedResult)
     {
         //arrange
@@ -88,7 +88,7 @@ public class AnagramAlgorithmTests
         result.Should().BeEquivalentTo(expectedResult);
     }
 
-    public static IEnumerable<object[]> GetCharCountTestData()
+    public static IEnumerable<object[]> GetCanFitWithinTestData()
     {
         yield return new object[]
         {
@@ -145,7 +145,7 @@ public class AnagramAlgorithmTests
     }
 
     [Theory]
-    [MemberData(nameof(GetCharCountTestData))]
+    [MemberData(nameof(GetCanFitWithinTestData))]
     public void CanFitWithin_VariousInputs_ReturnsExpectedResult(Dictionary<char, int> dummyLetters, Dictionary<char, int> dummyTargetLetters, bool expectedResult)
     {
         //arrange
@@ -155,5 +155,59 @@ public class AnagramAlgorithmTests
 
         //assert
         result.Should().Be(expectedResult);
+    }
+
+    public static IEnumerable<object[]> GetCreateCombinationsTestData()
+    {
+        var possibleAnagrams = new List<Anagram>
+        {
+            new Anagram { Key = "estt", Words = new List<string> { "sett" } },
+            new Anagram { Key = "est", Words = new List<string> { "set", "tes" }},
+            new Anagram { Key = "et", Words = new List<string> { "te" }},
+            new Anagram { Key = "st", Words = new List<string> { "st" }},
+            new Anagram { Key = "t", Words = new List<string> { "t" }}
+        };
+
+        yield return new object[]
+        {
+            new List<List<string>>
+            {
+                new List<string> { "estt" },
+                new List<string> { "est", "t" },
+                new List<string> { "et", "st" }
+            },
+
+            possibleAnagrams,
+
+            new List<string>
+            {
+                "sett",
+                "set t",
+                "tes t",
+                "te st"
+            }
+        };
+
+        yield return new object[]
+        {
+            new List<List<string>> { },
+
+            possibleAnagrams,
+
+            new List<string> { }
+        };
+    }
+
+    [Theory]
+    [MemberData(nameof(GetCreateCombinationsTestData))]
+    public void CreateCombinations_VariousInputs_ReturnsExpectedResult(List<List<string>> keyCombinations, List<Anagram> possibleAnagrams, List<string> expectedResult)
+    {
+        //arrange
+
+        //act
+        var result = _anagramAlgorithm.CreateCombinations(keyCombinations, possibleAnagrams);
+
+        //assert
+        result.Should().BeEquivalentTo(expectedResult);
     }
 }
