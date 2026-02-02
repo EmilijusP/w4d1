@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace AnagramSolver.BusinessLogic.Services
 {
-    public class AnagramSolverLogic: IAnagramSolver
+    public class AnagramSolverService: IAnagramSolver
     {
         private readonly IWordProcessor _wordProcessor;
         private readonly IAnagramDictionaryService _anagramDictonaryService;
@@ -16,7 +16,7 @@ namespace AnagramSolver.BusinessLogic.Services
         private readonly int _anagramCount;
         private readonly int _minOutputWordsLength;
 
-        public AnagramSolverLogic(
+        public AnagramSolverService(
             IWordProcessor wordProcessor,
             IAnagramDictionaryService anagramDictionaryService,
             IAnagramAlgorithm anagramAlgorithm,

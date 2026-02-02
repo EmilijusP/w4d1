@@ -25,7 +25,7 @@ var anagramDictionary = new AnagramDictionaryService(wordProcessor);
 
 var anagramAlgorithm = new AnagramAlgorithm();
 
-var anagramSolver = new AnagramSolverLogic(wordProcessor, anagramDictionary, anagramAlgorithm, wordRepository, settings.AnagramCount, settings.MinOutputWordsLength);
+var anagramSolver = new AnagramSolverService(wordProcessor, anagramDictionary, anagramAlgorithm, wordRepository, settings.AnagramCount, settings.MinOutputWordsLength);
 
 var ui = new UserInterface(settings.MinInputWordsLength, wordsValidation);
 
