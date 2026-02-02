@@ -1,11 +1,11 @@
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\bin\Debug\net8.0\AnagramSolver.Contracts.deps.json
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\bin\Debug\net8.0\AnagramSolver.Contracts.dll
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\bin\Debug\net8.0\AnagramSolver.Contracts.pdb
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.AssemblyInfoInputs.cache
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.AssemblyInfo.cs
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.csproj.CoreCompileInputs.cache
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.sourcelink.json
-C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\bin\Debug\net8.0\AnagramSolver.Contracts.deps.json
-C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\bin\Debug\net8.0\AnagramSolver.Contracts.dll
-C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\bin\Debug\net8.0\AnagramSolver.Contracts.pdb
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.dll
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\refint\AnagramSolver.Contracts.dll
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Contracts\obj\Debug\net8.0\AnagramSolver.Contracts.pdb

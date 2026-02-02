@@ -1,3 +1,5 @@
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\appsettings.json
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\zodynas.txt
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\AnagramSolver.Cli.exe
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\AnagramSolver.Cli.deps.json
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\AnagramSolver.Cli.runtimeconfig.json
@@ -19,5 +21,3 @@ C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\obj\D
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\obj\Debug\net8.0\AnagramSolver.Cli.pdb
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\obj\Debug\net8.0\AnagramSolver.Cli.genruntimeconfig.cache
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\obj\Debug\net8.0\ref\AnagramSolver.Cli.dll
-C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\appsettings.json
-C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.Cli\bin\Debug\net8.0\zodynas.txt
