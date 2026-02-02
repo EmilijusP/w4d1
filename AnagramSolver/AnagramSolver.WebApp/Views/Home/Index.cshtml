@@ -1,8 +1,19 @@
-﻿@{
+﻿@model IList<string>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">ANAGRAM SOLVER</h1>
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <input type="text" name="id" placeholder="Įveskite žodį" />
+        <button type="submit">Ieškoti</button>
+    </form>
+    <ul>
+        @foreach (var anagram in Model)
+        {
+            <ul>@anagram</ul>
+        }
+    </ul>
 </div>

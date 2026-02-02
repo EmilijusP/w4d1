@@ -1,3 +1,5 @@
+using AnagramSolver.BusinessLogic.Services;
+using AnagramSolver.Contracts.Interfaces;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,15 +9,24 @@ namespace AnagramSolver.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAnagramSolver _anagramSolver;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAnagramSolver anagramSolver)
         {
             _logger = logger;
+            _anagramSolver = anagramSolver;
         }
 
         public IActionResult Index(string? id)
         {
-            return View();
+            IList<string> anagrams = new List<string>();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                anagrams = _anagramSolver.GetAnagrams(id);
+            }
+
+            return View(anagrams);
         }
 
         public IActionResult Privacy()

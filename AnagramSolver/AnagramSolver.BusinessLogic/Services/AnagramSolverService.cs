@@ -51,7 +51,7 @@ namespace AnagramSolver.BusinessLogic.Services
 
             var anagramList = _anagramAlgorithm.CreateCombinations(keyCombinations, possibleAnagrams);
 
-            return anagramList;
+            return anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();
         }
     }
 }
