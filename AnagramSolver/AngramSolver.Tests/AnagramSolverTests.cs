@@ -13,7 +13,7 @@ namespace AnagramSolver.Tests
         private readonly Mock<IAnagramDictionaryService> _mockDictionaryService;
         private readonly Mock<IAnagramAlgorithm> _mockAnagramAlgorithm;
         private readonly Mock<IWordRepository> _mockWordRepository;
-        private readonly AnagramSolverLogic _systemUnderTest;
+        private readonly AnagramSolverService _systemUnderTest;
         private const int _anagramCount = 1;
         private const int _minOutputWordsLength = 2;
 
@@ -24,7 +24,7 @@ namespace AnagramSolver.Tests
             _mockAnagramAlgorithm = new Mock<IAnagramAlgorithm>();
             _mockWordRepository = new Mock<IWordRepository>();
 
-            _systemUnderTest = new AnagramSolverLogic(
+            _systemUnderTest = new AnagramSolverService(
                 _mockWordProcessor.Object,
                 _mockDictionaryService.Object,
                 _mockAnagramAlgorithm.Object,
