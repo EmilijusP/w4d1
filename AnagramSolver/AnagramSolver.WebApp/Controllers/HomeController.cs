@@ -19,14 +19,15 @@ namespace AnagramSolver.WebApp.Controllers
 
         public IActionResult Index(string? id)
         {
-            IList<string> anagrams = new List<string>();
+            var anagramViewModel = new AnagramViewModel();
 
             if (!string.IsNullOrEmpty(id))
             {
-                anagrams = _anagramSolver.GetAnagrams(id);
+                var anagrams = _anagramSolver.GetAnagrams(id);
+                anagramViewModel = new AnagramViewModel { AnagramLines = anagrams };
             }
 
-            return View(anagrams);
+            return View(anagramViewModel);
         }
 
         public IActionResult Privacy()

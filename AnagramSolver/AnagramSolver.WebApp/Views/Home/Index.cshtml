@@ -1,4 +1,4 @@
-﻿@model IList<string>
+﻿@model AnagramViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,10 +10,10 @@
         <input type="text" name="id" placeholder="Įveskite žodį" />
         <button type="submit">Ieškoti</button>
     </form>
-    <ul>
-        @foreach (var anagram in Model)
+    <ul style="list-style: none">
+        @foreach (var anagram in Model.AnagramLines)
         {
-            <ul>@anagram</ul>
+            <li>@anagram</li>
         }
     </ul>
 </div>
