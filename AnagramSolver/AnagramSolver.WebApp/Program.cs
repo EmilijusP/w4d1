@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
 builder.Services.AddScoped<IWordRepository>(sp => new FileWordRepository(settings.FilePath));
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
