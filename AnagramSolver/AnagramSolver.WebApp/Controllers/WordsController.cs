@@ -49,8 +49,13 @@ namespace AnagramSolver.WebApp.Controllers
 
         public IActionResult Create(string? word)
         {
-            bool isAdded = _anagramDictionaryService.AddWord(word);
-            return View((object)word);
+            var creationViewModel = new CreationViewModel
+            {
+                Word = word,
+                IsAdded = _anagramDictionaryService.AddWord(word)
+            };
+            
+            return View(creationViewModel);
         }
     }
 }

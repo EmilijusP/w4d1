@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model CreationViewModel
 
 @{
     ViewData["Title"] = "Add New Word";
@@ -7,13 +7,19 @@
 <div class="text-center">
     <h1>Pridėti naują žodį į žodyną.</h1>
     @{
-        if (string.IsNullOrEmpty(Model))
+        if (string.IsNullOrEmpty(Model.Word))
         {
-            <h2>Klaida. Žodis nepridėtas.</h2>
+            <h2>Klaida. Įveskite žodį.</h2>
         }
+
+        else if (!Model.IsAdded)
+        {
+            <h2>Klaida. Neteisinga įvestis/žodis jau yra žodyne.</h2>
+        }
+
         else
         {
-            <h2>"@(Model)" pridėta į žodyną.</h2>
+            <h2>"@(Model.Word)" pridėta į žodyną.</h2>
         }
     }
 </div>
