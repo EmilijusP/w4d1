@@ -8,14 +8,20 @@
 
     <h1 class="display-4">ANAGRAM SOLVER</h1>
 
-    <form asp-controller="Home" asp-action="Index" method="get">
+    <form asp-controller="Home" asp-action="Index" asp-route-id="" method="get">
         <input type="text" name="id" placeholder="Įveskite žodį" />
         <button type="submit">Ieškoti</button>
     </form>
 
-    @if (Model.AnagramLines.Any())
-    {
-        <h2>Anagrams for "@Model.Word"</h2>
+    @{
+        if (Model.AnagramLines.Any())
+        {
+            <h2>Anagrams for "@Model.Word"</h2>
+        }
+        else if (!string.IsNullOrEmpty(Model.Word) && !Model.AnagramLines.Any())
+        {
+            <h2>No anagrams for "@Model.Word" were found.</h2>
+        }
     }
 
     <ul>
