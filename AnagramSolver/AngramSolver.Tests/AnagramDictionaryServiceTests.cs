@@ -3,18 +3,23 @@ using AnagramSolver.Contracts.Interfaces;
 using AnagramSolver.Contracts.Models;
 using FluentAssertions;
 using Moq;
+using System.Security.AccessControl;
 
 namespace AnagramSolver.BusinessLogic.Tests;
 
 public class AnagramDictionaryServiceTests
 {
     private readonly Mock<IWordProcessor> _mockWordProcessor;
+    private readonly Mock<IWordRepository> _mockWordRepository;
+    private readonly Mock<IInputValidation> _mockInputValidation;
     private readonly IAnagramDictionaryService _anagramDictionaryService;
 
     public AnagramDictionaryServiceTests()
     {
         _mockWordProcessor = new Mock<IWordProcessor>();
-        _anagramDictionaryService = new AnagramDictionaryService(_mockWordProcessor.Object);
+        _mockWordRepository = new Mock<IWordRepository>();
+        _mockInputValidation = new Mock<IInputValidation>();
+        _anagramDictionaryService = new AnagramDictionaryService(_mockWordProcessor.Object, _mockWordRepository.Object, _mockInputValidation.Object);
     }
 
     [Theory]

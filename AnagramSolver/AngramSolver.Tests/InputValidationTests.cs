@@ -1,15 +1,21 @@
 using AnagramSolver.BusinessLogic.Services;
+using AnagramSolver.Contracts.Interfaces;
 using FluentAssertions;
+using Moq;
 
 namespace AnagramSolver.BusinessLogic.Tests;
 
 public class InputValidationTests
 {
+    private readonly Mock<IWordRepository> _mockWordRepository;
+    private readonly Mock<IWordProcessor> _mockWordProcessor;
     private readonly InputValidation _inputValidation;
 
     public InputValidationTests()
     {
-        _inputValidation = new InputValidation();
+        _mockWordRepository = new Mock<IWordRepository>();
+        _mockWordProcessor = new Mock<IWordProcessor>();
+        _inputValidation = new InputValidation(_mockWordRepository.Object, _mockWordProcessor.Object);
     }
 
 

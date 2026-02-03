@@ -15,19 +15,19 @@ string content = File.ReadAllText(jsonPath);
 
 var settings = JsonSerializer.Deserialize<AppSettings>(content);
 
-var wordsValidation = new InputValidation();
-
 var wordRepository = new FileWordRepository(settings.FilePath);
 
 var wordProcessor = new WordProcessor();
 
-var anagramDictionary = new AnagramDictionaryService(wordProcessor);
+var inputValidation = new InputValidation(wordRepository, wordProcessor);
+
+var anagramDictionary = new AnagramDictionaryService(wordProcessor, wordRepository, inputValidation);
 
 var anagramAlgorithm = new AnagramAlgorithm();
 
 var anagramSolver = new AnagramSolverService(wordProcessor, anagramDictionary, anagramAlgorithm, wordRepository, settings.AnagramCount, settings.MinOutputWordsLength);
 
-var ui = new UserInterface(settings.MinInputWordsLength, wordsValidation);
+var ui = new UserInterface(settings.MinInputWordsLength, inputValidation);
 
 var userInput = ui.ReadInput();
 var results = anagramSolver.GetAnagrams(userInput);

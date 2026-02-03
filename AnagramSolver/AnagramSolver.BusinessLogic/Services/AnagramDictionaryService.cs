@@ -65,7 +65,6 @@ namespace AnagramSolver.BusinessLogic.Services
 
         public bool AddWord(string word)
         {
-            var wordsSet = _wordRepository.GetWords();
             var wordModel = new WordModel { Word = word };
             if (!_inputValidation.IsValidWriteToFileInput(wordModel))
             {

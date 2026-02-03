@@ -128057,3 +128057,4 @@ Zuzana	tikr. dkt	Zuzana	1
 žvyrkelis	dkt	žvyrkeliu	2
 žvyrkelis	dkt	žvyrkelį	1
 -	-	ymca	1
+-	-	sula	1
