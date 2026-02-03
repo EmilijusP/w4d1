@@ -27,7 +27,7 @@ namespace AnagramSolver.WebApp.Controllers
 
             var items = allItems.Skip((page - 1) * pageSize).Take(pageSize);
 
-            var totalPages = allItems.Count() / pageSize;
+            var totalPages = Math.Ceiling( allItems.Count() / (double)pageSize );
 
             var paginationViewModel = new PaginationViewModel
             {

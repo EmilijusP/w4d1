@@ -6,7 +6,7 @@
 
         public int CurrentPage { get; set; }
 
-        public int TotalPages { get; set; }
+        public double TotalPages { get; set; }
 
         public bool HasPrevious => CurrentPage > 1;
 
