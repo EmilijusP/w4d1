@@ -11,6 +11,6 @@ namespace AnagramSolver.Contracts.Interfaces
     {
         bool IsValidUserInput(string input, int minWordLength);
 
-        bool IsValidWriteToFileInput(WordModel wordModel);
+        Task<bool> IsValidWriteToFileInputAsync(WordModel wordModel, CancellationToken ct = default);
     }
 }

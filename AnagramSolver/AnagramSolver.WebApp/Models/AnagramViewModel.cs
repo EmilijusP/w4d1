@@ -6,6 +6,7 @@ namespace AnagramSolver.WebApp.Models
     {
         public string Word { get; set; }
 
-        public IList<string>? AnagramLines { get; set; } = new List<string>();
+        public IEnumerable<string>? AnagramLines { get; set; } = new List<string>();
+
     }
 }

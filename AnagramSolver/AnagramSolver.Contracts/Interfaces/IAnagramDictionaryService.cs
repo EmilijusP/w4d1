@@ -11,7 +11,7 @@ namespace AnagramSolver.Contracts.Interfaces
     {
         List<Anagram> CreateAnagrams(HashSet<WordModel> wordModels);
 
-        bool AddWord(string wordToAdd);
+        Task<bool> AddWordAsync(string wordToAdd, CancellationToken ct = default);
 
     }
 

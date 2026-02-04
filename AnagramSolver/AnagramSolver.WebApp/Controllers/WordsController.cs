@@ -19,11 +19,13 @@ namespace AnagramSolver.WebApp.Controllers
             _anagramDictionaryService = anagramDictionaryService;
         }
 
-        public IActionResult Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, CancellationToken ct = default)
         {
             var pageSize = 100;
 
-            var allItems = _wordRepository.ReadAllLinesAsync().Select(wordModel => wordModel.Word).ToList();
+            var itemsSet = await _wordRepository.ReadAllLinesAsync(ct);
+
+            var allItems = itemsSet.Select(wordModel => wordModel.Word).ToList();
 
             var items = allItems.Skip((page - 1) * pageSize).Take(pageSize);
 
@@ -47,12 +49,12 @@ namespace AnagramSolver.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Create(string? word)
+        public async Task<IActionResult> Create(string? word, CancellationToken ct)
         {
             var creationViewModel = new CreationViewModel
             {
                 Word = word,
-                IsAdded = _anagramDictionaryService.AddWord(word)
+                IsAdded = await _anagramDictionaryService.AddWordAsync(word, ct)
             };
             
             return View(creationViewModel);

@@ -17,13 +17,13 @@ namespace AnagramSolver.WebApp.Controllers
             _anagramSolver = anagramSolver;
         }
 
-        public IActionResult Index(string? id)
+        public async Task<IActionResult> Index(string? id, CancellationToken ct)
         {
             var anagramViewModel = new AnagramViewModel();
 
             if (!string.IsNullOrEmpty(id))
             {
-                var anagrams = _anagramSolver.GetAnagrams(id);
+                var anagrams = await _anagramSolver.GetAnagramsAsync(id, ct);
                 anagramViewModel = new AnagramViewModel 
                 { 
                     Word = id,

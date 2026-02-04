@@ -63,10 +63,13 @@ namespace AnagramSolver.BusinessLogic.Services
 
         }
 
-        public bool AddWord(string word)
+        public async Task<bool> AddWordAsync(string word, CancellationToken ct)
         {
             var wordModel = new WordModel { Word = word };
-            if (!_inputValidation.IsValidWriteToFileInput(wordModel))
+
+            var inputIsValid = await _inputValidation.IsValidWriteToFileInputAsync(wordModel, ct);
+
+            if (!inputIsValid)
             {
                 return false;
             }
@@ -74,7 +77,7 @@ namespace AnagramSolver.BusinessLogic.Services
             else
             {
                 wordModel.Word = _wordProcessor.RemoveWhitespace(wordModel.Word).ToLower();
-                _wordRepository.WriteToFileAsync(wordModel);
+                await _wordRepository.WriteToFileAsync(wordModel, ct);
                 return true;
             }
         }

@@ -2,6 +2,6 @@
 {
     public interface IAnagramSolver
     {
-        public IList<string> GetAnagrams(string userWords);
+        Task<IEnumerable<string>> GetAnagramsAsync(string userWords, CancellationToken ct = default);
     }
 }

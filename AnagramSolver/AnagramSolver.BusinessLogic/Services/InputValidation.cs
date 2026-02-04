@@ -42,7 +42,7 @@ namespace AnagramSolver.BusinessLogic.Services
             return isValid;
         }
 
-        public bool IsValidWriteToFileInput(WordModel wordModel)
+        public async Task<bool> IsValidWriteToFileInputAsync(WordModel wordModel, CancellationToken ct)
         {
             var lemma = wordModel.Lemma;
             var form = wordModel.Form;
@@ -59,7 +59,9 @@ namespace AnagramSolver.BusinessLogic.Services
                 return false;
             }
 
-            if (_wordRepository.ReadAllLinesAsync().Any(model => model.Word == _wordProcessor.RemoveWhitespace(word).ToLower()))
+            var allLines = await _wordRepository.ReadAllLinesAsync(ct);
+            
+            if (allLines.Any(model => model.Word == _wordProcessor.RemoveWhitespace(word).ToLower()))
             {
                 return false;
             }

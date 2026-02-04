@@ -33,13 +33,13 @@ namespace AnagramSolver.BusinessLogic.Services
             _minOutputWordsLength = minOutputWordsLength;
         }
 
-        public IList<string> GetAnagrams(string userWords)
+        public async Task<IEnumerable<string>> GetAnagramsAsync(string userWords, CancellationToken ct)
         {
             var cleanInput = _wordProcessor.RemoveWhitespace(userWords);
 
             var inputCharCount = _wordProcessor.CreateCharCount(cleanInput);
 
-            var wordSet = _wordRepository.ReadAllLinesAsync();
+            var wordSet = await _wordRepository.ReadAllLinesAsync(ct);
 
             var allAnagrams = _anagramDictonaryService.CreateAnagrams(wordSet);
 
