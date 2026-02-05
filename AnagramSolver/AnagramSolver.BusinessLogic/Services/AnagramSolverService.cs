@@ -38,7 +38,7 @@ namespace AnagramSolver.BusinessLogic.Services
 
             var wordSet = await _wordRepository.ReadAllLinesAsync(ct);
 
-            var allAnagrams = _anagramDictonaryService.CreateAnagrams(wordSet);
+            var allAnagrams = _anagramDictionaryService.CreateAnagrams(wordSet);
 
             var filteredAnagrams = allAnagrams.Where(key => _anagramAlgorithm.IsValidOutputLength(key.Key, _settings.MinOutputWordsLength));
             
