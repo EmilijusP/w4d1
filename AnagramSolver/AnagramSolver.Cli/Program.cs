@@ -1,7 +1,4 @@
-﻿using AnagramSolver.Contracts.Models;
-using AnagramSolver.BusinessLogic.Data;
-
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using AnagramSolver.Cli;
 using AnagramSolver.BusinessLogic.Services;
@@ -11,30 +8,26 @@ Console.InputEncoding = Encoding.UTF8;
 Console.OutputEncoding = Encoding.UTF8;
 
 using var cts = new CancellationTokenSource();
-Console.CancelKeyPress += (s, e) => {
+Console.CancelKeyPress += (s, e) =>
+{
     e.Cancel = true;
     cts.Cancel();
 };
 
-string jsonPath = "appsettings.json";
-string content = await File.ReadAllTextAsync(jsonPath);
+using var client = new HttpClient();
 
-var settings = JsonSerializer.Deserialize<AppSettings>(content);
+client.BaseAddress = new Uri("https://localhost:7267");
 
-var wordRepository = new FileWordRepository(settings.FilePath);
-
-var wordProcessor = new WordProcessor();
-
-var inputValidation = new InputValidation(wordRepository, wordProcessor);
-
-var anagramDictionary = new AnagramDictionaryService(wordProcessor, wordRepository, inputValidation);
-
-var anagramAlgorithm = new AnagramAlgorithm();
-
-var anagramSolver = new AnagramSolverService(wordProcessor, anagramDictionary, anagramAlgorithm, wordRepository, settings.AnagramCount, settings.MinOutputWordsLength);
-
-var ui = new UserInterface(settings.MinInputWordsLength, inputValidation);
+var ui = new UserInterface();
 
 var userInput = ui.ReadInput();
-var results = await anagramSolver.GetAnagramsAsync(userInput, cts.Token);
-ui.ShowOutput(results);
+
+var response = await client.GetAsync($"api/anagrams/{userInput}", cts.Token);
+
+response.EnsureSuccessStatusCode();
+
+var json = await response.Content.ReadAsStringAsync();
+
+var anagrams = JsonSerializer.Deserialize<List<string>>(json);
+
+ui.ShowOutput(anagrams);

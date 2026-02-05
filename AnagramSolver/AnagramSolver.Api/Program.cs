@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();

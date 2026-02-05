@@ -21,6 +21,7 @@ namespace AnagramSolver.BusinessLogic.Services
             IAnagramDictionaryService anagramDictionaryService,
             IAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
+            
             int anagramCount,
             int minOutputWordsLength
             )
