@@ -11,10 +11,12 @@ namespace AnagramSolver.Api.Controllers
     public class WordsController : ControllerBase
     {
         private readonly IWordRepository _wordRepository;
+        private readonly IInputValidation _inputValidation;
 
-        public WordsController(IWordRepository wordRepository)
+        public WordsController(IWordRepository wordRepository, IInputValidation inputValidation)
         {
             _wordRepository = wordRepository;
+            _inputValidation = inputValidation;
         }
 
         [HttpGet]
@@ -40,6 +42,18 @@ namespace AnagramSolver.Api.Controllers
             return Ok(word);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddWord([FromBody] WordModel wordModel, CancellationToken ct = default)
+        {
+            if (!await _inputValidation.IsValidWriteToFileInputAsync(wordModel, ct))
+            {
+                return BadRequest($"The input \"{wordModel.Word}\" is not valid.");
+            }
+
+            await _wordRepository.WriteToFileAsync(wordModel, ct);
+
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = wordModel.Id}, wordModel);
+        }
 
     }
 }

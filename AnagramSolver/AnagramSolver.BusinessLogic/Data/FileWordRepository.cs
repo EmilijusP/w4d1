@@ -6,18 +6,18 @@ namespace AnagramSolver.BusinessLogic.Data
 {
     public class FileWordRepository : IWordRepository
     {
-        private readonly string _filePath;
+        private readonly AppSettings _settings;
 
-        public FileWordRepository(string filePath)
+        public FileWordRepository(AppSettings settings)
         {
-            _filePath = filePath;
+            _settings = settings;
         }
 
         public async Task<IEnumerable<WordModel>> ReadAllLinesAsync(CancellationToken ct)
         {
             var words = new HashSet<WordModel>();
 
-            string[] textLines = await File.ReadAllLinesAsync(_filePath, ct);
+            string[] textLines = await File.ReadAllLinesAsync(_settings.FilePath, ct);
 
             int index = 0;
 
@@ -56,8 +56,13 @@ namespace AnagramSolver.BusinessLogic.Data
 
         public async Task WriteToFileAsync(WordModel wordModel, CancellationToken ct)
         {
+            var lines = await ReadAllLinesAsync(ct);
+            int newId = lines.Count() + 1;
+
+            wordModel.Id = newId;
+
             var line = new List<string> { $"{wordModel.Lemma}\t{wordModel.Form}\t{wordModel.Word}\t{wordModel.Frequency}" };
-            await File.AppendAllLinesAsync(_filePath, line, ct);
+            await File.AppendAllLinesAsync(_settings.FilePath, line, ct);
         }
     }
 }

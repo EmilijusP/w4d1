@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
-builder.Services.AddSingleton<AppSettings>(settings);
+builder.Services.AddScoped<AppSettings>(settings);
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
 builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();

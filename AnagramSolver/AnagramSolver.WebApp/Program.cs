@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
 builder.Services.AddScoped<IInputValidation, InputValidation>();
-builder.Services.AddScoped<IWordRepository>(sp => new FileWordRepository(settings.FilePath));
+builder.Services.AddScoped<IWordRepository, FileWordRepository>();
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
 builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();
