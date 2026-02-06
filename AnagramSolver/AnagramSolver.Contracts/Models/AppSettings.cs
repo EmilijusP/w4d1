@@ -4,6 +4,8 @@
     {
         public string FilePath { get; set; } = string.Empty;
 
+        public string FileAbsolutePath { get; set; } = string.Empty;
+
         public int AnagramCount { get; set; }
 
         public int MinInputWordsLength { get; set; }

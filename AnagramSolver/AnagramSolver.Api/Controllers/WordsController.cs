@@ -2,6 +2,7 @@
 using AnagramSolver.Contracts.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using System.Collections;
 
 namespace AnagramSolver.Api.Controllers
@@ -12,11 +13,13 @@ namespace AnagramSolver.Api.Controllers
     {
         private readonly IWordRepository _wordRepository;
         private readonly IInputValidation _inputValidation;
+        private readonly AppSettings _settings;
 
-        public WordsController(IWordRepository wordRepository, IInputValidation inputValidation)
+        public WordsController(IWordRepository wordRepository, IInputValidation inputValidation, AppSettings settings)
         {
             _wordRepository = wordRepository;
             _inputValidation = inputValidation;
+            _settings = settings;
         }
 
         [HttpGet]
@@ -60,7 +63,7 @@ namespace AnagramSolver.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteWord(int id, CancellationToken ct = default)
+        public async Task<ActionResult> DeleteWordAsync(int id, CancellationToken ct = default)
         {
             
             bool deleted = await _wordRepository.DeleteById(id, ct);
@@ -71,6 +74,19 @@ namespace AnagramSolver.Api.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("download")]
+        public IActionResult DownloadFile()
+        {
+            string filePath = _settings.FileAbsolutePath;
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("File does not exist.");
+            }
+
+            return PhysicalFile(Path.GetFullPath(filePath), "text/plain", "zodynas.txt");
         }
 
     }
