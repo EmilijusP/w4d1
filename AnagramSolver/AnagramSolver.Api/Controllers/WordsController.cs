@@ -2,6 +2,7 @@
 using AnagramSolver.Contracts.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace AnagramSolver.Api.Controllers
 {
@@ -14,6 +15,14 @@ namespace AnagramSolver.Api.Controllers
         public WordsController(IWordRepository wordRepository)
         {
             _wordRepository = wordRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<WordModel>>> GetWordsAsync(CancellationToken ct = default)
+        {
+            var words = await _wordRepository.ReadAllLinesAsync(ct);
+
+            return Ok(words);
         }
 
         [HttpGet("{id}")]
@@ -30,5 +39,7 @@ namespace AnagramSolver.Api.Controllers
             
             return Ok(word);
         }
+
+
     }
 }
