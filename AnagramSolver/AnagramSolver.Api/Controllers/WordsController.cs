@@ -59,5 +59,19 @@ namespace AnagramSolver.Api.Controllers
             return CreatedAtAction("GetById", new { id = wordModel.Id}, wordModel);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteWord(int id, CancellationToken ct = default)
+        {
+            
+            bool deleted = await _wordRepository.DeleteById(id, ct);
+
+            if (!deleted)
+            {
+                return NotFound($"Word with id {id} not found.");
+            }
+
+            return NoContent();
+        }
+
     }
 }

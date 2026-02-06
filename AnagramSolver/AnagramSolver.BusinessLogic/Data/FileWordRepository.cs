@@ -60,5 +60,24 @@ namespace AnagramSolver.BusinessLogic.Data
 
             await File.AppendAllLinesAsync(_settings.FilePath, line, ct);
         }
+
+        public async Task<bool> DeleteById(int id, CancellationToken ct)
+        {
+            var lines = await ReadAllLinesAsync(ct);
+            var words = lines.ToList();
+
+            if (id < 0 || id >= words.Count())
+            {
+                return false;
+            }
+
+            words.RemoveAt(id);
+
+            var newLines = words.Select(w => $"{w.Lemma}\t{w.Form}\t{w.Word}\t{w.Frequency}");
+
+            await File.WriteAllLinesAsync(_settings.FilePath, newLines, ct);
+
+            return true;
+        }
     }
 }
