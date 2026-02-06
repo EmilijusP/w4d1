@@ -50,9 +50,13 @@ namespace AnagramSolver.Api.Controllers
                 return BadRequest($"The input \"{wordModel.Word}\" is not valid.");
             }
 
+            var words = await _wordRepository.ReadAllLinesAsync(ct);
+            int newId = words.Count() + 1;
+            wordModel.Id = newId;
+
             await _wordRepository.WriteToFileAsync(wordModel, ct);
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = wordModel.Id}, wordModel);
+            return CreatedAtAction("GetById", new { id = wordModel.Id}, wordModel);
         }
 
     }

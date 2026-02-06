@@ -128056,6 +128056,6 @@ Zuzana	tikr. dkt	Zuzana	1
 žvyrkelis	dkt	žvyrkelis	2
 žvyrkelis	dkt	žvyrkeliu	2
 žvyrkelis	dkt	žvyrkelį	1
--	-	ymca	1
--	-	sula	1
--	-	antanina	1
+emilijus	gera	emilijus	1
+emilijus	gera	emilijano	1
+emilijus	gera	emilijanijus	1

@@ -56,12 +56,8 @@ namespace AnagramSolver.BusinessLogic.Data
 
         public async Task WriteToFileAsync(WordModel wordModel, CancellationToken ct)
         {
-            var lines = await ReadAllLinesAsync(ct);
-            int newId = lines.Count() + 1;
-
-            wordModel.Id = newId;
-
             var line = new List<string> { $"{wordModel.Lemma}\t{wordModel.Form}\t{wordModel.Word}\t{wordModel.Frequency}" };
+
             await File.AppendAllLinesAsync(_settings.FilePath, line, ct);
         }
     }
