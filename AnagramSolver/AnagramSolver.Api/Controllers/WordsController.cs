@@ -86,7 +86,7 @@ namespace AnagramSolver.Api.Controllers
                 return NotFound("File does not exist.");
             }
 
-            return PhysicalFile(Path.GetFullPath(filePath), "text/plain", "zodynas.txt");
+            return PhysicalFile(System.IO.Path.GetFullPath(filePath), "text/plain", "zodynas.txt");
         }
 
     }

@@ -2,6 +2,7 @@ using AnagramSolver.Contracts.Interfaces;
 using AnagramSolver.BusinessLogic.Services;
 using AnagramSolver.Contracts.Models;
 using AnagramSolver.BusinessLogic.Data;
+using AnagramSolver.Api.GraphQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();
 builder.Services.AddScoped<IWordRepository, FileWordRepository>();
 builder.Services.AddScoped<IInputValidation, InputValidation>();
 builder.Services.AddScoped<IAnagramSolver, AnagramSolverService>();
+
+builder.Services.AddGraphQLServer().AddQueryType<Query>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,5 +39,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGraphQL();
 
 app.Run();
