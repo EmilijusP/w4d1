@@ -5,7 +5,9 @@
 <div class="text-center">
     <h1>Pridėti naują žodį į žodyną.</h1>
     <form asp-controller="Words" asp-action="Create" method="post">
-        <input type="text" name="word" placeholder="Įveskite žodį"/>
-        <button type="submit">Pridėti</button>
+        <p>Lemma: <input type="text" name="lemma" placeholder="Enter the lemma"/></p>
+        <p>Word Form: <input type="text" name="form" placeholder="Enter the word form" /></p>
+        <p>Word: <input required type="text" name="word" placeholder="Enter the word" /></p>
+        <button type="submit">Submit</button>
     </form>
 </div>

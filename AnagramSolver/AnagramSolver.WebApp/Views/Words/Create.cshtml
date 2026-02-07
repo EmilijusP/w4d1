@@ -5,21 +5,21 @@
 }
 
 <div class="text-center">
-    <h1>Pridėti naują žodį į žodyną.</h1>
+    <h1>Add a new word to the dictionary.</h1>
     @{
         if (string.IsNullOrEmpty(Model.Word))
         {
-            <h2>Klaida. Įveskite žodį.</h2>
+            <h2>Error. Enter a word.</h2>
         }
 
         else if (!Model.IsAdded)
         {
-            <h2>Klaida. Neteisinga įvestis/žodis jau yra žodyne.</h2>
+            <h2>Error. Bad input / word exists.</h2>
         }
 
         else
         {
-            <h2>"@(Model.Word)" pridėta į žodyną.</h2>
+            <h2>"@(Model.Word)" added to dictionary.</h2>
         }
     }
 </div>

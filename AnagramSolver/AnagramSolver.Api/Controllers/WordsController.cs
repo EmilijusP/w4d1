@@ -51,7 +51,7 @@ namespace AnagramSolver.Api.Controllers
             if (!await _inputValidation.IsValidWriteToFileInputAsync(wordModel, ct))
             {
                 return BadRequest($"The input \"{wordModel.Word}\" is not valid.");
-            }
+            }   
 
             var words = await _wordRepository.ReadAllLinesAsync(ct);
             int newId = words.Count() + 1;
@@ -59,7 +59,7 @@ namespace AnagramSolver.Api.Controllers
 
             await _wordRepository.WriteToFileAsync(wordModel, ct);
 
-            return CreatedAtAction("GetById", new { id = wordModel.Id}, wordModel);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

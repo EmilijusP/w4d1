@@ -48,13 +48,27 @@ namespace AnagramSolver.WebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create(string? word, CancellationToken ct)
+        public async Task<IActionResult> Create(string? lemma, string? form, string? word, CancellationToken ct = default)
         {
+            if (string.IsNullOrEmpty(word))
+            {
+                return View(new CreationViewModel { IsAdded = false });
+            }
+
+            var wordModel = new WordModel
+            {
+                Lemma = lemma,
+                Form = form,
+                Word = word,
+                Frequency = 1
+            };
+
+            var response = _httpClient.PostAsJsonAsync("words", wordModel, ct);
 
             var creationViewModel = new CreationViewModel
             {
-                Word = word
-                //IsAdded = await _anagramDictionaryService.AddWordAsync(word, ct)
+                Word = word,
+                IsAdded = response.Result.IsSuccessStatusCode
             };
             
             return View(creationViewModel);
