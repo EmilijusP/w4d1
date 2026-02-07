@@ -89,5 +89,29 @@ namespace AnagramSolver.Api.Controllers
             return PhysicalFile(System.IO.Path.GetFullPath(filePath), "text/plain", "zodynas.txt");
         }
 
+        [HttpGet("{page}/{pageSize}")]
+        public async Task<ActionResult<PaginationResponse>> GetCurrentPageWordsAsync(int page, int pageSize, CancellationToken ct = default)
+        {
+            var words = await _wordRepository.ReadAllLinesAsync(ct);
+
+            var totalPages = (int) Math.Ceiling(words.Count() / (double)pageSize);
+
+            var items = words.Skip((page - 1) * pageSize).Take(pageSize);
+
+            bool hasPreviousPage = page > 1;
+
+            bool hasNextPage = page < totalPages;
+
+            var response = new PaginationResponse
+            {
+                Items = items,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                HasPreviousPage = hasPreviousPage,
+                HasNextPage = hasNextPage
+            };
+
+            return Ok(response);
+        }
     }
 }

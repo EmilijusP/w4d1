@@ -2,6 +2,7 @@
 using AnagramSolver.BusinessLogic.Services;
 using AnagramSolver.Contracts.Interfaces;
 using AnagramSolver.Contracts.Models;
+using AnagramSolver.Api.Controllers;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
@@ -10,34 +11,32 @@ namespace AnagramSolver.WebApp.Controllers
 {
     public class WordsController : Controller
     {
-        private readonly IWordRepository _wordRepository;
-        private readonly IAnagramDictionaryService _anagramDictionaryService;
+        private readonly HttpClient _httpClient;
 
-        public WordsController(IWordRepository wordRepository, IAnagramDictionaryService anagramDictionaryService)
+        public WordsController(IHttpClientFactory httpClientFactory)
         {
-            _wordRepository = wordRepository;
-            _anagramDictionaryService = anagramDictionaryService;
+            _httpClient = httpClientFactory.CreateClient("AnagramApi");
         }
 
         public async Task<IActionResult> Index(int page = 1, CancellationToken ct = default)
         {
             var pageSize = 100;
 
-            var itemsSet = await _wordRepository.ReadAllLinesAsync(ct);
+            var response = await _httpClient.GetAsync($"words/{page}/{pageSize}", ct);
 
-            var allItems = itemsSet.Select(wordModel => wordModel.Word).ToList();
-
-            var items = allItems.Skip((page - 1) * pageSize).Take(pageSize);
-
-            var totalPages = Math.Ceiling( allItems.Count() / (double)pageSize );
+            var result = await response.Content.ReadFromJsonAsync<PaginationResponse>();
 
             var paginationViewModel = new PaginationViewModel
             {
-                Items = items,
+                Items = result.Items,
 
-                CurrentPage = page,
+                CurrentPage = result.CurrentPage,
 
-                TotalPages = totalPages
+                TotalPages = result.TotalPages,
+
+                HasPreviousPage = result.HasPreviousPage,
+
+                HasNextPage = result.HasNextPage
             };
 
             return View(paginationViewModel);
@@ -51,10 +50,11 @@ namespace AnagramSolver.WebApp.Controllers
 
         public async Task<IActionResult> Create(string? word, CancellationToken ct)
         {
+
             var creationViewModel = new CreationViewModel
             {
-                Word = word,
-                IsAdded = await _anagramDictionaryService.AddWordAsync(word, ct)
+                Word = word
+                //IsAdded = await _anagramDictionaryService.AddWordAsync(word, ct)
             };
             
             return View(creationViewModel);

@@ -1,16 +1,18 @@
-﻿namespace AnagramSolver.WebApp.Models
+﻿using AnagramSolver.Contracts.Models;
+
+namespace AnagramSolver.WebApp.Models
 {
     public class PaginationViewModel
     {
-        public IEnumerable<string> Items { get; set; }
+        public IEnumerable<WordModel> Items { get; set; }
 
         public int CurrentPage { get; set; }
 
         public double TotalPages { get; set; }
 
-        public bool HasPrevious => CurrentPage > 1;
+        public bool HasPreviousPage { get; set; }
 
-        public bool HasNext => CurrentPage < TotalPages;
+        public bool HasNextPage { get; set; }
 
     }
 }

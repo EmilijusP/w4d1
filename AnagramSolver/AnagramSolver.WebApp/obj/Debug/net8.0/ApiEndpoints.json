@@ -105,6 +105,37 @@
   },
   {
     "ContainingType": "AnagramSolver.Api.Controllers.WordsController",
+    "Method": "GetCurrentPageWordsAsync",
+    "RelativePath": "api/Words/{page}/{pageSize}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AnagramSolver.Contracts.Models.PaginationResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AnagramSolver.Api.Controllers.WordsController",
     "Method": "DownloadFile",
     "RelativePath": "api/Words/download",
     "HttpMethod": "GET",
