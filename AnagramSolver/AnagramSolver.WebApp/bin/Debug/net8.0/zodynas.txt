@@ -128056,3 +128056,6 @@ zuzana	tikr. dkt	zuzana	1
 žvyrkelis	dkt	žvyrkelis	2
 žvyrkelis	dkt	žvyrkeliu	2
 žvyrkelis	dkt	žvyrkelį	1
+-	-	emilijus	1
+-	-	67	1
+-	-	ymca	1

@@ -9,14 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
-//builder.Services.AddScoped<IInputValidation, InputValidation>();
-//builder.Services.AddScoped<IWordRepository, FileWordRepository>();
-//builder.Services.AddScoped<IWordProcessor, WordProcessor>();
-//builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
-//builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();
-//builder.Services.AddScoped<IAnagramSolver, AnagramSolverService>();
-
 builder.Services.AddHttpClient("AnagramApi", client => client.BaseAddress = new Uri("https://localhost:7267/api/"));
 
 var app = builder.Build();

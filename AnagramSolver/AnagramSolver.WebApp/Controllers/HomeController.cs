@@ -44,7 +44,7 @@ namespace AnagramSolver.WebApp.Controllers
 
                 else
                 {
-                    var message = "Įvyko nenumatyta serverio klaida.";
+                    var message = "Unexpected server error.";
                     anagramViewModel.ErrorMessage = message;
                 }
             }

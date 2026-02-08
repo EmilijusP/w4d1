@@ -25,7 +25,7 @@ namespace AnagramSolver.Api.Controllers
         {
             if (!_inputValidation.IsValidUserInput(word, _settings.MinInputWordsLength))
             {
-                return BadRequest($"Netinkama įvestis. Žodžiai turi turėti {_settings.MinInputWordsLength} arba daugiau raidžių.");
+                return BadRequest($"Bad input. Words should be made up of {_settings.MinInputWordsLength} or more letters.");
             }
             
             var results = await _anagramSolver.GetAnagramsAsync(word, ct);
