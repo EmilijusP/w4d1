@@ -51,6 +51,16 @@ namespace AnagramSolver.WebApp.Controllers
 
                 anagramViewModel.SearchHistory = searchHistory;
 
+                if (response.Headers.TryGetValues("X-Anagram-Count", out var count))
+                {
+                    Response.Headers.Append("X-Anagram-Count", count.FirstOrDefault().ToString());
+                }
+
+                if (response.Headers.TryGetValues("X-Search-Duration-Ms", out var duration))
+                {
+                    Response.Headers.Append("X-Search-Duration-Ms", duration.FirstOrDefault().ToString());
+                }
+
                 if (response.IsSuccessStatusCode)
                 {
                     var anagrams = await response.Content.ReadFromJsonAsync<List<string>>();
