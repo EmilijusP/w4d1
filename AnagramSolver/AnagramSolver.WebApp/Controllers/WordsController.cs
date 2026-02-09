@@ -73,5 +73,22 @@ namespace AnagramSolver.WebApp.Controllers
             
             return View(creationViewModel);
         }
+
+        public async Task<IActionResult> Download()
+        {
+            var response = await _httpClient.GetAsync("words/download");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+            }
+
+            var content = await response.Content.ReadAsByteArrayAsync();
+            var contentType = response.Content.Headers.ContentType?.ToString() ?? "application/octet-stream";
+
+            var fileName = response.Content.Headers.ContentDisposition?.FileNameStar ?? "zodynas.txt";
+
+            return File(content, contentType, fileName);
+        }
     }
 }

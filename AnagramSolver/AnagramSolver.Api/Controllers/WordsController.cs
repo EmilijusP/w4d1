@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using System.Collections;
+using AnagramSolver.BusinessLogic.Data;
 
 namespace AnagramSolver.Api.Controllers
 {

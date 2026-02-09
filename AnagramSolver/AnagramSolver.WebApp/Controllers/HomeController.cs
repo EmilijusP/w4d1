@@ -24,7 +24,7 @@ namespace AnagramSolver.WebApp.Controllers
         public async Task<IActionResult> Index(string? id, CancellationToken ct)
         {
             var anagramViewModel = new AnagramViewModel();
-         
+
             var lastSearch = Request.Cookies["lastSearch"];
 
             anagramViewModel.LastSearch = lastSearch;
