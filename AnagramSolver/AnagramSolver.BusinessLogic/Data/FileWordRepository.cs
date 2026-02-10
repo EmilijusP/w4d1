@@ -12,7 +12,7 @@ namespace AnagramSolver.BusinessLogic.Data
         public FileWordRepository(AppSettings settings)
         {
             _settings = settings;
-            _filePath = string.Concat(_settings.FilePath, "/zodynas.txt");
+            _filePath = string.Concat(_settings.FilesPath, "/zodynas.txt");
         }
 
         public async Task<IEnumerable<WordModel>> ReadAllLinesAsync(CancellationToken ct)

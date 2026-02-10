@@ -2,7 +2,7 @@
 {
     public class AppSettings
     {
-        public string FilePath { get; set; } = string.Empty;
+        public string FilesPath { get; set; } = string.Empty;
 
         public string FileAbsolutePath { get; set; } = string.Empty;
 

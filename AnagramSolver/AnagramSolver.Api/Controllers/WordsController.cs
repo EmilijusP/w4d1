@@ -80,7 +80,7 @@ namespace AnagramSolver.Api.Controllers
         [HttpGet("download/{fileName}")]
         public IActionResult DownloadFile(string fileName, CancellationToken ct = default)
         {
-            string fileStoragePath = _settings.FilePath;
+            string fileStoragePath = _settings.FilesPath;
 
             string fullPath = System.IO.Path.Combine(fileStoragePath, fileName);
 
