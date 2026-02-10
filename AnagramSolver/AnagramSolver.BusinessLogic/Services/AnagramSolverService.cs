@@ -13,14 +13,14 @@ namespace AnagramSolver.BusinessLogic.Services
         private readonly IAnagramDictionaryService _anagramDictionaryService;
         private readonly IAnagramAlgorithm _anagramAlgorithm;
         private readonly IWordRepository _wordRepository;
-        private readonly AppSettings _settings;
+        private readonly IAppSettings _settings;
 
         public AnagramSolverService(
             IWordProcessor wordProcessor,
             IAnagramDictionaryService anagramDictionaryService,
             IAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
-            AppSettings settings
+            IAppSettings settings
             )
         {
             _wordProcessor = wordProcessor;

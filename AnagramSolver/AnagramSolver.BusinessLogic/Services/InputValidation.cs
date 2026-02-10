@@ -26,7 +26,7 @@ namespace AnagramSolver.BusinessLogic.Services
                 return false;
             }
 
-            var words = input.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+            var words = input.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
 
             if (words.Length == 0)
             {

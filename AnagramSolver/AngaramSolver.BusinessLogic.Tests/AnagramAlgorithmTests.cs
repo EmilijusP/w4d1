@@ -35,11 +35,8 @@ public class AnagramAlgorithmTests
         yield return new object[] 
         { 
             targetLetters,
-
             1,
-            
             possibleAnagrams,
-
             new List<List<string>> 
             { 
                 new List<string> { "estt" } 
@@ -48,11 +45,8 @@ public class AnagramAlgorithmTests
         yield return new object[] 
         { 
             targetLetters,
-
             2,
-            
             possibleAnagrams,
-
             new List<List<string>> 
             { 
                 new List<string> { "estt" }, 
@@ -63,11 +57,8 @@ public class AnagramAlgorithmTests
         yield return new object[] 
         { 
             targetLetters,
-
             0,
-            
             possibleAnagrams,
-
             new List<List<string>> 
             { 
                 new List<string> { } 

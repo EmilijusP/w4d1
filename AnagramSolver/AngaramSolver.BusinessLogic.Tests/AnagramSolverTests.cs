@@ -13,7 +13,7 @@ namespace AnagramSolver.Tests
         private readonly Mock<IAnagramDictionaryService> _mockDictionaryService;
         private readonly Mock<IAnagramAlgorithm> _mockAnagramAlgorithm;
         private readonly Mock<IWordRepository> _mockWordRepository;
-        private readonly AppSettings _appSettings;
+        private readonly Mock<IAppSettings> _mockAppSettings;
         private readonly AnagramSolverService _systemUnderTest;
 
         public AnagramSolverTests()
@@ -22,37 +22,34 @@ namespace AnagramSolver.Tests
             _mockDictionaryService = new Mock<IAnagramDictionaryService>();
             _mockAnagramAlgorithm = new Mock<IAnagramAlgorithm>();
             _mockWordRepository = new Mock<IWordRepository>();
-            _appSettings = new AppSettings
-            {
-                AnagramCount = 1,
-                MinInputWordsLength = 2,
-                MinOutputWordsLength = 2
-            };
+            _mockAppSettings = new Mock<IAppSettings>();
 
             _systemUnderTest = new AnagramSolverService(
                 _mockWordProcessor.Object,
                 _mockDictionaryService.Object,
                 _mockAnagramAlgorithm.Object,
                 _mockWordRepository.Object,
-                _appSettings
+                _mockAppSettings.Object
                 );
         }
 
         [Theory]
-        [InlineData("labas", "balas", 4)]
-        public async Task GetAnagramsAsync_ValidSingleWord_ReturnsExpectedAnagram(string inputWord, string expectedAnagram, int minOutputWordsLength)
+        [InlineData("labas", "balas", 1, 4)]
+        public async Task GetAnagramsAsync_ValidSingleWord_ReturnsExpectedAnagram(string inputWord, string expectedAnagram, int anagramCount, int minOutputWordsLength)
         {
             //arrange
             var charCount = new Dictionary<char, int> { { 'a', 2 }, { 'b', 1 }, { 'l', 1 }, { 's', 1 } };
             var anagrams = new List<Anagram> { new Anagram { Words = new List<string> { expectedAnagram }, KeyCharCount = charCount } };
 
+            _mockAppSettings.Setup(s => s.AnagramCount).Returns(anagramCount);
+            _mockAppSettings.Setup(s => s.MinOutputWordsLength).Returns(minOutputWordsLength);
             _mockWordProcessor.Setup(p => p.RemoveWhitespace(inputWord)).Returns(inputWord);
             _mockWordProcessor.Setup(p => p.CreateCharCount(inputWord)).Returns(charCount);
             _mockWordRepository.Setup(r => r.ReadAllLinesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(new List<WordModel>());
             _mockDictionaryService.Setup(d => d.CreateAnagrams(It.IsAny<HashSet<WordModel>>())).Returns(anagrams);
-            _mockAnagramAlgorithm.Setup(a => a.IsValidOutputLength(It.IsAny<string>(), _appSettings.MinOutputWordsLength)).Returns(true);
+            _mockAnagramAlgorithm.Setup(a => a.IsValidOutputLength(It.IsAny<string>(), _mockAppSettings.Object.MinOutputWordsLength)).Returns(true);
             _mockAnagramAlgorithm.Setup(a => a.CanFitWithin(It.IsAny<Dictionary<char, int>>(), It.IsAny<Dictionary<char, int>>())).Returns(true);
-            _mockAnagramAlgorithm.Setup(a => a.FindKeyCombinations(It.IsAny<Dictionary<char, int>>(), _appSettings.AnagramCount, It.IsAny<List<Anagram>>()))
+            _mockAnagramAlgorithm.Setup(a => a.FindKeyCombinations(It.IsAny<Dictionary<char, int>>(), _mockAppSettings.Object.AnagramCount, It.IsAny<List<Anagram>>()))
                 .Returns(new List<List<string>> { new List<string> { "key" } });
             _mockAnagramAlgorithm.Setup(a => a.CreateCombinations(It.IsAny<List<List<string>>>(), It.IsAny<List<Anagram>>()))
                 .Returns(new List<string> { expectedAnagram });

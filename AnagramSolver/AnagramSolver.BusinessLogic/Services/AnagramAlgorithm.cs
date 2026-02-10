@@ -36,8 +36,9 @@ namespace AnagramSolver.BusinessLogic.Services
 
             for (int i = startIndex; i < possibleAnagrams.Count; i++)
             {
-                string key = possibleAnagrams[i].Key;
-                if (CanFitWithin(possibleAnagrams[i].KeyCharCount, remainingLetters))
+                string key = possibleAnagrams[i]?.Key ?? "";
+                var lettersCount = possibleAnagrams[i]?.KeyCharCount ?? new Dictionary<char, int>();
+                if (CanFitWithin(lettersCount, remainingLetters))
                 {
                     currentCombination.Add(key);
                     RemoveLetters(key, remainingLetters);

@@ -12,14 +12,14 @@
 //    public class HomeControllerTests
 //    {
 //        private readonly Mock<ILogger<HomeController>> _mockLogger;
-//        private readonly Mock<IAnagramSolver> _mockAnagramSolver;
+//        private readonly Mock<IHttpClientFactory> _mockHttpClient;
 //        private readonly HomeController _homeController;
 
 //        public HomeControllerTests()
 //        {
 //            _mockLogger = new Mock<ILogger<HomeController>>();
-//            _mockAnagramSolver = new Mock<IAnagramSolver>();
-//            _homeController = new HomeController(_mockLogger.Object, _mockAnagramSolver.Object);
+//            _mockHttpClient = new Mock<IHttpClientFactory>();
+//            _homeController = new HomeController(_mockLogger.Object, _mockHttpClient.Object);
 //        }
 
 //        [Theory]
@@ -28,8 +28,8 @@
 //        public async Task Index_VariousWords_ReturnsPossibleAnagrams(string id, string expectedAnagram)
 //        {
 //            //arrange
-//            var expectedResult = expectedAnagram == null 
-//                ? new List<string>() 
+//            var expectedResult = expectedAnagram == null
+//                ? new List<string>()
 //                : new List<string> { expectedAnagram };
 
 //            _mockAnagramSolver.Setup(s => s.GetAnagramsAsync(id, It.IsAny<CancellationToken>())).ReturnsAsync(expectedResult);
@@ -43,7 +43,7 @@
 //            var model = Assert.IsType<AnagramViewModel>(viewResult.Model);
 
 //            model.AnagramLines.Should().BeEquivalentTo(expectedResult);
-            
+
 //        }
 
 //        [Fact]

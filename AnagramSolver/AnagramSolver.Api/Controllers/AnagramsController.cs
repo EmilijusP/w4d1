@@ -9,12 +9,12 @@ namespace AnagramSolver.Api.Controllers
     [ApiController]
     public class AnagramsController : ControllerBase
     {
-        private readonly AppSettings _settings;
+        private readonly IAppSettings _settings;
         private readonly IAnagramSolver _anagramSolver;
         private readonly IInputValidation _inputValidation;
         
 
-        public AnagramsController(AppSettings settings, IAnagramSolver anagramSolver, IInputValidation inputValidation)
+        public AnagramsController(IAppSettings settings, IAnagramSolver anagramSolver, IInputValidation inputValidation)
         {
             _settings = settings;
             _anagramSolver = anagramSolver;

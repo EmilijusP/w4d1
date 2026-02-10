@@ -3,6 +3,7 @@ using AnagramSolver.BusinessLogic.Services;
 using AnagramSolver.Contracts.Models;
 using AnagramSolver.BusinessLogic.Data;
 using AnagramSolver.Api.GraphQL;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
-builder.Services.AddSingleton<AppSettings>(settings);
+builder.Services.AddSingleton<IAppSettings>(settings);
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
 builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();

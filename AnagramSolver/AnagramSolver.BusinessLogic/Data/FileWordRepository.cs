@@ -6,10 +6,10 @@ namespace AnagramSolver.BusinessLogic.Data
 {
     public class FileWordRepository : IWordRepository
     {
-        private readonly AppSettings _settings;
+        private readonly IAppSettings _settings;
         private readonly string _filePath;
 
-        public FileWordRepository(AppSettings settings)
+        public FileWordRepository(IAppSettings settings)
         {
             _settings = settings;
             _filePath = string.Concat(_settings.FilesPath, "/zodynas.txt");
@@ -59,7 +59,7 @@ namespace AnagramSolver.BusinessLogic.Data
 
         public async Task WriteToFileAsync(WordModel wordModel, CancellationToken ct)
         {
-            var line = new List<string> { $"{wordModel.Lemma.ToLower()}\t{wordModel.Form.ToLower()}\t{wordModel.Word.ToLower()}\t{wordModel.Frequency}" };
+            var line = new List<string> { $"{wordModel.Lemma?.ToLower()}\t{wordModel.Form?.ToLower()}\t{wordModel.Word?.ToLower()}\t{wordModel.Frequency}" };
 
             await File.AppendAllLinesAsync(_filePath, line, ct);
         }

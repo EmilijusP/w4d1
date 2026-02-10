@@ -1,6 +1,8 @@
-﻿namespace AnagramSolver.Contracts.Models
+﻿using AnagramSolver.Contracts.Interfaces;
+
+namespace AnagramSolver.Contracts.Models
 {
-    public class AppSettings
+    public class AppSettings: IAppSettings
     {
         public string FilesPath { get; set; } = string.Empty;
 

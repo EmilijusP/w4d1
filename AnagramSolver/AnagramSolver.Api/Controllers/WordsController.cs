@@ -14,9 +14,9 @@ namespace AnagramSolver.Api.Controllers
     {
         private readonly IWordRepository _wordRepository;
         private readonly IInputValidation _inputValidation;
-        private readonly AppSettings _settings;
+        private readonly IAppSettings _settings;
 
-        public WordsController(IWordRepository wordRepository, IInputValidation inputValidation, AppSettings settings)
+        public WordsController(IWordRepository wordRepository, IInputValidation inputValidation, IAppSettings settings)
         {
             _wordRepository = wordRepository;
             _inputValidation = inputValidation;
