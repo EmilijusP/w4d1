@@ -137,11 +137,17 @@
   {
     "ContainingType": "AnagramSolver.Api.Controllers.WordsController",
     "Method": "DownloadFile",
-    "RelativePath": "api/Words/download",
+    "RelativePath": "api/Words/download/{fileName}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "fileName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

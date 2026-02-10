@@ -77,17 +77,26 @@ namespace AnagramSolver.Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("download")]
-        public IActionResult DownloadFile()
+        [HttpGet("download/{fileName}")]
+        public IActionResult DownloadFile(string fileName, CancellationToken ct = default)
         {
-            string filePath = _settings.FilePath;
+            string fileStoragePath = _settings.FilePath;
 
-            if (!System.IO.File.Exists(filePath))
+            string fullPath = System.IO.Path.Combine(fileStoragePath, fileName);
+
+            if (!System.IO.Path.GetFullPath(fullPath).StartsWith(System.IO.Path.GetFullPath(fileStoragePath)))
+            {
+                return BadRequest("Invalid file path.");
+            }
+
+            if (!System.IO.File.Exists(fullPath))
             {
                 return NotFound("File does not exist.");
             }
 
-            return PhysicalFile(System.IO.Path.GetFullPath(filePath), "text/plain", "zodynas.txt");
+            var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read);
+
+            return File(stream, "application/octet-stream", fileName);
         }
 
         [HttpGet("{page}/{pageSize}")]

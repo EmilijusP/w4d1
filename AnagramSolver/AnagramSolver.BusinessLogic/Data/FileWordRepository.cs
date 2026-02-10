@@ -7,17 +7,20 @@ namespace AnagramSolver.BusinessLogic.Data
     public class FileWordRepository : IWordRepository
     {
         private readonly AppSettings _settings;
+        private readonly string _filePath;
 
         public FileWordRepository(AppSettings settings)
         {
             _settings = settings;
+            _filePath = string.Concat(_settings.FilePath, "/zodynas.txt");
         }
 
         public async Task<IEnumerable<WordModel>> ReadAllLinesAsync(CancellationToken ct)
         {
             var words = new HashSet<WordModel>();
 
-            string[] textLines = await File.ReadAllLinesAsync(_settings.FilePath, ct);
+
+            string[] textLines = await File.ReadAllLinesAsync(_filePath, ct);
 
             int index = 0;
 
@@ -58,7 +61,7 @@ namespace AnagramSolver.BusinessLogic.Data
         {
             var line = new List<string> { $"{wordModel.Lemma.ToLower()}\t{wordModel.Form.ToLower()}\t{wordModel.Word.ToLower()}\t{wordModel.Frequency}" };
 
-            await File.AppendAllLinesAsync(_settings.FilePath, line, ct);
+            await File.AppendAllLinesAsync(_filePath, line, ct);
         }
 
         public async Task<bool> DeleteById(int id, CancellationToken ct)
@@ -75,7 +78,7 @@ namespace AnagramSolver.BusinessLogic.Data
 
             var newLines = words.Select(w => $"{w.Lemma}\t{w.Form}\t{w.Word}\t{w.Frequency}");
 
-            await File.WriteAllLinesAsync(_settings.FilePath, newLines, ct);
+            await File.WriteAllLinesAsync(_filePath, newLines, ct);
 
             return true;
         }
