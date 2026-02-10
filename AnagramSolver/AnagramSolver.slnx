@@ -8,4 +8,5 @@
   <Project Path="AnagramSolver.Cli/AnagramSolver.Cli.csproj" />
   <Project Path="AnagramSolver.Contracts/AnagramSolver.Contracts.csproj" />
   <Project Path="AnagramSolver.WebApp/AnagramSolver.WebApp.csproj" Id="bd7204a8-ac3f-44b6-a146-9538bb95c746" />
+  <Project Path="GenericsAndDelegatesTask/GenericsAndDelegatesTask.csproj" Id="39f223cc-a6fc-4284-82e5-abb93c7fa517" />
 </Solution>
