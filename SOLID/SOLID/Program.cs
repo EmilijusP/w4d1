@@ -1,15 +1,25 @@
-﻿public class OrderService
+﻿public interface IOrderService
+{ 
+    void ProcessOrder(); 
+
+    void SendEmail(); 
+
+    void SaveToFile(); 
+
+}
+
+public class OrderService
 {
     private readonly IOrderValidation _orderValidation;
     private readonly IEnumerable<IPaymentProcessor> _paymentMethods;
-    private readonly INotification _notification;
+    private readonly IEmailNotification _emailNotification;
     private readonly IOrderPersistence _orderPersistence;
 
-    public OrderService(IOrderValidation orderValidartion, IEnumerable<IPaymentProcessor> paymentMethods, INotification notification, IOrderPersistence orderPersistence)
+    public OrderService(IOrderValidation orderValidartion, IEnumerable<IPaymentProcessor> paymentMethods, IEmailNotification emailNotification, IOrderPersistence orderPersistence)
     {
         _orderValidation = orderValidartion;
         _paymentMethods = paymentMethods;
-        _notification = notification;
+        _emailNotification = emailNotification;
         _orderPersistence = orderPersistence;
     }
 
@@ -29,7 +39,10 @@
         paymentType.ProcessPayment(order.Total);
 
         // Notification
-        _notification.SendEmailNotification(order.CustomerEmail);
+        if (_emailNotification.IsValidEmail(order.CustomerEmail))
+        {
+            _emailNotification.SendNotification(order.CustomerEmail);
+        }
 
         // Persistence
         _orderPersistence.SaveOrderId(order.Id);
@@ -86,19 +99,28 @@ public class PaypalPayment : IPaymentProcessor
     }
 }
 
-public interface INotification
+public interface IEmailNotification
 {
-    void SendEmailNotification(string email);
+    bool IsValidEmail(string email);
+
+    void SendNotification(string email);
 }
 
-public class Notification : INotification
+public class EmailNotification : IEmailNotification
 {
-    public void SendEmailNotification(string email)
+    public bool IsValidEmail(string email)
     {
-        if (email != null)
+        if (!string.IsNullOrEmpty(email))
         {
-            Console.WriteLine($"Email sent to {email}");
+            return true;
         }
+
+        return false;
+    }
+
+    public void SendNotification(string email)
+    {
+        Console.WriteLine($"Email sent to {email}");
     }
 }
 
