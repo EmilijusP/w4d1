@@ -1,14 +1,14 @@
 ﻿public class OrderService
 {
     private readonly IOrderValidation _orderValidation;
-    private readonly IPaymentProcessor _paymentProcessing;
+    private readonly IEnumerable<IPaymentProcessor> _paymentMethods;
     private readonly INotification _notification;
     private readonly IOrderPersistence _orderPersistence;
 
-    public OrderService(IOrderValidation orderValidartion, IPaymentProcessor paymentProcessing, INotification notification, IOrderPersistence orderPersistence)
+    public OrderService(IOrderValidation orderValidartion, IEnumerable<IPaymentProcessor> paymentMethods, INotification notification, IOrderPersistence orderPersistence)
     {
         _orderValidation = orderValidartion;
-        _paymentProcessing = paymentProcessing;
+        _paymentMethods = paymentMethods;
         _notification = notification;
         _orderPersistence = orderPersistence;
     }
@@ -19,7 +19,14 @@
         _orderValidation.ValidateOrder(order);
 
         // Payment
-        _paymentProcessing.ProcessPayment(order.PaymentMethod);
+        var paymentType = _paymentMethods.FirstOrDefault(p => p.CanProcessPayment(order.PaymentMethod));
+
+        if (paymentType == null)
+        {
+            throw new Exception("Payment method is not supported.");
+        }
+
+        paymentType.ProcessPayment(order.Total);
 
         // Notification
         _notification.SendEmailNotification(order.CustomerEmail);
@@ -48,25 +55,34 @@ public class OrderValidation : IOrderValidation
 
 public interface IPaymentProcessor
 {
-    void ProcessPayment(string paymentMethod);
+    bool CanProcessPayment(string paymentMethod);
+
+    void ProcessPayment(decimal total);
 }
 
-public class PaymentProcessing : IPaymentProcessor
+public class CreditCardPayment : IPaymentProcessor
 {
-    public void ProcessPayment(string paymentMethod)
+    public bool CanProcessPayment(string paymentMethod)
     {
-        if (paymentMethod == "CreditCard")
-        {
-            Console.WriteLine("Paid with credit card");
-        }
-        else if (paymentMethod == "PayPal")
-        {
-            Console.WriteLine("Paid with PayPal");
-        }
-        else
-        {
-            throw new Exception("Unknown payment method");
-        }
+        return paymentMethod == "CreditCard";
+    }
+
+    public void ProcessPayment(decimal total)
+    {
+        Console.WriteLine($"Paid {total} with credit card");
+    }
+}
+
+public class PaypalPayment : IPaymentProcessor
+{
+    public bool CanProcessPayment(string paymentMethod)
+    {
+        return paymentMethod == "Paypal";
+    }
+
+    public void ProcessPayment(decimal total)
+    {
+        Console.WriteLine($"Paid {total} with PayPal");
     }
 }
 
