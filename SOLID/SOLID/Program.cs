@@ -1,26 +1,20 @@
-﻿public interface IOrderService
-{ 
-    void ProcessOrder(); 
-
-    void SendEmail(); 
-
-    void SaveToFile(); 
-
-}
+﻿using System.ComponentModel.DataAnnotations;
 
 public class OrderService
 {
+    private readonly ILogger _logger;
     private readonly IOrderValidation _orderValidation;
     private readonly IEnumerable<IPaymentProcessor> _paymentMethods;
     private readonly IEmailNotification _emailNotification;
-    private readonly IOrderPersistence _orderPersistence;
+    private readonly IOrderRepository _orderRepository;
 
-    public OrderService(IOrderValidation orderValidartion, IEnumerable<IPaymentProcessor> paymentMethods, IEmailNotification emailNotification, IOrderPersistence orderPersistence)
+    public OrderService(ILogger logger, IOrderValidation orderValidation, IEnumerable<IPaymentProcessor> paymentMethods, IEmailNotification emailNotification, IOrderRepository orderRepository)
     {
-        _orderValidation = orderValidartion;
+        _logger = logger;
+        _orderValidation = orderValidation;
         _paymentMethods = paymentMethods;
         _emailNotification = emailNotification;
-        _orderPersistence = orderPersistence;
+        _orderRepository = orderRepository;
     }
 
     public void ProcessOrder(Order order)
@@ -45,7 +39,7 @@ public class OrderService
         }
 
         // Persistence
-        _orderPersistence.SaveOrderId(order.Id);
+        _orderRepository.SaveOrder(order);
     }
 }
 
@@ -75,6 +69,13 @@ public interface IPaymentProcessor
 
 public class CreditCardPayment : IPaymentProcessor
 {
+    private readonly ILogger _logger;
+
+    public CreditCardPayment(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     public bool CanProcessPayment(string paymentMethod)
     {
         return paymentMethod == "CreditCard";
@@ -82,12 +83,20 @@ public class CreditCardPayment : IPaymentProcessor
 
     public void ProcessPayment(decimal total)
     {
-        Console.WriteLine($"Paid {total} with credit card");
+        var message = $"Paid {total} with credit card";
+        _logger.Log(message);
     }
 }
 
 public class PaypalPayment : IPaymentProcessor
 {
+    private readonly ILogger _logger;
+
+    public PaypalPayment(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     public bool CanProcessPayment(string paymentMethod)
     {
         return paymentMethod == "Paypal";
@@ -95,7 +104,8 @@ public class PaypalPayment : IPaymentProcessor
 
     public void ProcessPayment(decimal total)
     {
-        Console.WriteLine($"Paid {total} with PayPal");
+        var message = $"Paid {total} with PayPal";
+        _logger.Log(message);
     }
 }
 
@@ -108,6 +118,13 @@ public interface IEmailNotification
 
 public class EmailNotification : IEmailNotification
 {
+    private readonly ILogger _logger;
+
+    public EmailNotification(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     public bool IsValidEmail(string email)
     {
         if (!string.IsNullOrEmpty(email))
@@ -120,20 +137,34 @@ public class EmailNotification : IEmailNotification
 
     public void SendNotification(string email)
     {
-        Console.WriteLine($"Email sent to {email}");
+        var message = $"Email sent to {email}";
+        _logger.Log(message);
     }
 }
 
-public interface IOrderPersistence
+public interface ILogger
 {
-    void SaveOrderId(int id);
+    void Log(string message);
 }
 
-public class OrderPersistence : IOrderPersistence
+public class ConsoleLogger : ILogger
 {
-    public void SaveOrderId(int id)
+    public void Log(string message)
     {
-        File.AppendAllText("orders.txt", id + Environment.NewLine);
+        Console.WriteLine(message);
+    }
+}
+
+public interface IOrderRepository
+{
+    void SaveOrder(Order order);
+}
+
+public class FileOrderRepository : IOrderRepository
+{
+    public void SaveOrder(Order order)
+    {
+        File.AppendAllText("orders.txt", $"{order.Id}\t{order.Total}\t{order.PaymentMethod}\t{order.CustomerEmail}" + Environment.NewLine);
     }
 }
 
@@ -143,4 +174,45 @@ public class Order
     public decimal Total { get; set; }
     public string PaymentMethod { get; set; }
     public string? CustomerEmail { get; set; }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var logger = new ConsoleLogger();
+
+        var validator = new OrderValidation();
+
+        var paymentMethods = new List<IPaymentProcessor>
+        {
+            new CreditCardPayment(logger),
+            new PaypalPayment(logger)
+        };
+
+        var emailNotification = new EmailNotification(logger);
+
+        var orderRepository = new FileOrderRepository();
+
+        var orderService = new OrderService(logger, validator, paymentMethods, emailNotification, orderRepository);
+
+        var myOrder = new Order
+        {
+            Id = 1,
+            Total = 45,
+            PaymentMethod = "Paypal",
+            CustomerEmail = "customer@mail.com"
+        };
+
+        try
+        {
+            orderService.ProcessOrder(myOrder);
+            Console.WriteLine("Order processed");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+        }
+
+    }
 }
