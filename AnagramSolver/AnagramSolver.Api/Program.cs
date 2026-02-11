@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
 builder.Services.AddSingleton<IAppSettings>(settings);
+builder.Services.AddSingleton<IMemoryCache<IEnumerable<string>>, MemoryCache<IEnumerable<string>>>();
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
 builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();

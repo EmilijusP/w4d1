@@ -14,13 +14,15 @@ namespace AnagramSolver.BusinessLogic.Services
         private readonly IAnagramAlgorithm _anagramAlgorithm;
         private readonly IWordRepository _wordRepository;
         private readonly IAppSettings _settings;
+        private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
 
         public AnagramSolverService(
             IWordProcessor wordProcessor,
             IAnagramDictionaryService anagramDictionaryService,
             IAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
-            IAppSettings settings
+            IAppSettings settings,
+            IMemoryCache<IEnumerable<string>> memoryCache
             )
         {
             _wordProcessor = wordProcessor;
@@ -28,11 +30,18 @@ namespace AnagramSolver.BusinessLogic.Services
             _anagramAlgorithm = anagramAlgorithm;
             _wordRepository = wordRepository;
             _settings = settings;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IEnumerable<string>> GetAnagramsAsync(string userWords, CancellationToken ct)
         {
             var cleanInput = _wordProcessor.RemoveWhitespace(userWords);
+
+            IEnumerable<string> value;
+            if (_memoryCache.TryGet(cleanInput, out var cached))
+            {
+                return cached;
+            }
 
             var inputCharCount = _wordProcessor.CreateCharCount(cleanInput);
 
@@ -49,6 +58,8 @@ namespace AnagramSolver.BusinessLogic.Services
             var anagramList = _anagramAlgorithm.CreateCombinations(keyCombinations, possibleAnagrams);
 
             var anagramsWithoutInput = anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();
+
+            _memoryCache.Add(cleanInput, anagramsWithoutInput);
 
             return anagramsWithoutInput;
         }

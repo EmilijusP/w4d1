@@ -12,13 +12,15 @@ namespace AnagramSolver.Api.Controllers
         private readonly IAppSettings _settings;
         private readonly IAnagramSolver _anagramSolver;
         private readonly IInputValidation _inputValidation;
+        private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
         
 
-        public AnagramsController(IAppSettings settings, IAnagramSolver anagramSolver, IInputValidation inputValidation)
+        public AnagramsController(IAppSettings settings, IAnagramSolver anagramSolver, IInputValidation inputValidation, IMemoryCache<IEnumerable<string>> memoryCache)
         {
             _settings = settings;
             _anagramSolver = anagramSolver;
             _inputValidation = inputValidation;
+            _memoryCache = memoryCache;
         }
 
         [HttpGet("{word?}")]
