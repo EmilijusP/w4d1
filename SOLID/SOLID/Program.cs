@@ -109,6 +109,32 @@ public class PaypalPayment : IPaymentProcessor
     }
 }
 
+public class GooglePayPayment : IPaymentProcessor
+{
+    private readonly ILogger _logger;
+
+    public GooglePayPayment(ILogger logger)
+    {
+        _logger = logger;
+    }
+
+    public bool CanProcessPayment(string paymentMethod)
+    {
+        return paymentMethod == "GooglePay";
+    }
+
+    public void ProcessPayment(decimal total)
+    {
+        if (total > 100)
+        {
+            throw new Exception("GooglePay cannot process payments over 100.");
+        }
+
+        var message = $"Paid {total} with GooglePay";
+        _logger.Log(message);
+    }
+}
+
 public interface IEmailNotification
 {
     bool IsValidEmail(string email);
