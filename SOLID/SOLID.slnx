@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="SOLID/SOLID.csproj" />
+  <Project Path="SOLID.BusinessLogic/SOLID.BusinessLogic.csproj" Id="d6eb07ab-9412-42ab-a1b1-bb1f1d433eab" />
+  <Project Path="SOLID.Contracts/SOLID.Contracts.csproj" Id="b4cc5f2f-3e65-4051-888e-608e3febe6c6" />
+  <Project Path="SOLID/SOLID.Cli.csproj" />
 </Solution>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.Interfaces
+namespace SOLID.Contracts.Interfaces
 {
     public interface IEmailNotification
     {

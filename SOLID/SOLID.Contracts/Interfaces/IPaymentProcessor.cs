@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.Interfaces
+namespace SOLID.Contracts.Interfaces
 {
-    public interface ILogger
+    public interface IPaymentProcessor
     {
-        void Log(string message);
-
-        void ThrowException(string meesage);
+        void ProcessPayment(decimal total);
     }
 }

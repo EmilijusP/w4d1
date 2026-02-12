@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SOLID.Models;
+using SOLID.Contracts.Models;
 
-namespace SOLID.Interfaces
+namespace SOLID.Contracts.Interfaces
 {
     public interface IOrderRepository
     {

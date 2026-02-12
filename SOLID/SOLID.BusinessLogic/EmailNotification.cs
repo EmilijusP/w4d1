@@ -1,11 +1,11 @@
-﻿using SOLID.Interfaces;
+﻿using SOLID.Contracts.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.Classes
+namespace SOLID.BusinessLogic
 {
     public class EmailNotification : IEmailNotification
     {

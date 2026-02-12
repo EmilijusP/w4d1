@@ -1,12 +1,12 @@
-﻿using SOLID.Interfaces;
-using SOLID.Models;
+﻿using SOLID.Contracts.Interfaces;
+using SOLID.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOLID.Classes
+namespace SOLID.BusinessLogic
 {
     public class OrderValidation : IOrderValidation
     {

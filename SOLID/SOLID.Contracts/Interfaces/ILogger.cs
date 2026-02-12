@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SOLID.Models;
 
-namespace SOLID.Interfaces
+namespace SOLID.Contracts.Interfaces
 {
-    public interface IOrderValidation
+    public interface ILogger
     {
-        void ValidateOrder(Order order);
+        void Log(string message);
     }
 }
