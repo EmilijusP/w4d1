@@ -1,27 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using SOLID.BusinessLogic;
+﻿using SOLID.BusinessLogic;
 using SOLID.BusinessLogic.Decorators;
+using SOLID.BusinessLogic.Facades;
+using SOLID.Contracts.Interfaces;
 using SOLID.Contracts.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
-    var logger = new ConsoleLogger();
+var myOrder = new Order
+{
+    Id = 1,
+    Total = 50,
+    PaymentMethod = "BankTransfer",
+    CustomerEmail = "customer@mail.com"
+};
 
-    var validator = new OrderValidation();
+ILogger logger = new ConsoleLogger();
 
-    var paymentMethod = new PaymentLoggingDecorator(new PaymentTimingDecorator(new BankTransferPayment(logger), logger), logger);
+IOrderValidation validator = new OrderValidation();
 
-    var emailNotification = new EmailNotification(logger);
+IPaymentStrategy paymentMethod = new PaymentLoggingDecorator(new PaymentTimingDecorator(new BankTransferPayment(logger), logger), logger);
 
-    var orderRepository = new FileOrderRepository();
+IEmailNotification emailNotification = new EmailNotification(logger);
 
-    var orderService = new OrderService(logger, validator, paymentMethod, emailNotification, orderRepository);
+IOrderRepository orderRepository = new FileOrderRepository();
 
-    var myOrder = new Order
-    {
-        Id = 1,
-        Total = 50,
-        PaymentMethod = "BankTransfer",
-        CustomerEmail = "customer@mail.com"
-    };
+IOrderService orderService = new OrderService(logger, validator, paymentMethod, emailNotification, orderRepository);
 
-    orderService.ProcessOrder(myOrder);
+OrderFacade orderFacade = new OrderFacade(orderService);
+
+orderFacade.ProcessNewOrder(myOrder);

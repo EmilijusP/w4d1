@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SOLID.BusinessLogic
 {
 
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private readonly ILogger _logger;
         private readonly IOrderValidation _orderValidation;
