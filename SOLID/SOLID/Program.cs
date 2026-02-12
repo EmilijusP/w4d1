@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 public class OrderService
 {
@@ -23,7 +24,7 @@ public class OrderService
         _orderValidation.ValidateOrder(order);
 
         // Payment
-        var paymentType = _paymentMethods.FirstOrDefault(p => p.CanProcessPayment(order.PaymentMethod));
+        var paymentType = _paymentMethods.FirstOrDefault(p => p.CanProcessPayment(order.PaymentMethod, order.Total));
 
         if (paymentType == null)
         {
@@ -62,7 +63,7 @@ public class OrderValidation : IOrderValidation
 
 public interface IPaymentProcessor
 {
-    bool CanProcessPayment(string paymentMethod);
+    bool CanProcessPayment(string paymentMethod, decimal total);
 
     void ProcessPayment(decimal total);
 }
@@ -76,7 +77,7 @@ public class CreditCardPayment : IPaymentProcessor
         _logger = logger;
     }
 
-    public bool CanProcessPayment(string paymentMethod)
+    public bool CanProcessPayment(string paymentMethod, decimal total)
     {
         return paymentMethod == "CreditCard";
     }
@@ -97,7 +98,7 @@ public class PaypalPayment : IPaymentProcessor
         _logger = logger;
     }
 
-    public bool CanProcessPayment(string paymentMethod)
+    public bool CanProcessPayment(string paymentMethod, decimal total)
     {
         return paymentMethod == "Paypal";
     }
@@ -118,18 +119,13 @@ public class GooglePayPayment : IPaymentProcessor
         _logger = logger;
     }
 
-    public bool CanProcessPayment(string paymentMethod)
+    public bool CanProcessPayment(string paymentMethod, decimal total)
     {
-        return paymentMethod == "GooglePay";
+        return paymentMethod == "GooglePay" && total <= 100;
     }
 
     public void ProcessPayment(decimal total)
     {
-        if (total > 100)
-        {
-            throw new Exception("GooglePay cannot process payments over 100.");
-        }
-
         var message = $"Paid {total} with GooglePay";
         _logger.Log(message);
     }
@@ -213,7 +209,8 @@ class Program
         var paymentMethods = new List<IPaymentProcessor>
         {
             new CreditCardPayment(logger),
-            new PaypalPayment(logger)
+            new PaypalPayment(logger),
+            new GooglePayPayment(logger)
         };
 
         var emailNotification = new EmailNotification(logger);
@@ -225,8 +222,8 @@ class Program
         var myOrder = new Order
         {
             Id = 1,
-            Total = 45,
-            PaymentMethod = "Paypal",
+            Total = 101,
+            PaymentMethod = "GooglePay",
             CustomerEmail = "customer@mail.com"
         };
 
