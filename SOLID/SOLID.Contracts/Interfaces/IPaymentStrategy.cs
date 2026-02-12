@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SOLID.Contracts.Interfaces
 {
-    public interface IPaymentProcessor
+    public interface IPaymentStrategy
     {
-        void ProcessPayment(decimal total);
+        void Pay(decimal total);
     }
 }

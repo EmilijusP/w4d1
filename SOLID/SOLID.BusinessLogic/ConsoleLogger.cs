@@ -11,7 +11,10 @@ namespace SOLID.BusinessLogic
     {
         public void Log(string message)
         {
-            Console.WriteLine(message);
+            if (AppSettings.Instance.Environment == "Staging")
+            {
+                Console.WriteLine(message);
+            }
         }
     }
 }

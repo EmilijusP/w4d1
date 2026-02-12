@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace SOLID.BusinessLogic
 {
-    public class PaypalPayment : IPaymentStrategy
+    public class BankTransferPayment : IPaymentStrategy
     {
         private readonly ILogger _logger;
 
-        public PaypalPayment(ILogger logger)
+        public BankTransferPayment(ILogger logger)
         {
             _logger = logger;
         }
 
         public void Pay(decimal total)
         {
-            var message = $"Paid {total} with PayPal";
+            var message = $"Paid {total} with Bank Transfer";
             _logger.Log(message);
         }
     }

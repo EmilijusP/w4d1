@@ -7,7 +7,7 @@ using SOLID.Contracts.Models;
 
     var validator = new OrderValidation();
 
-    var paymentMethod = new PaypalPayment(logger);
+    var paymentMethod = new BankTransferPayment(logger);
 
     var emailNotification = new EmailNotification(logger);
 
@@ -19,7 +19,7 @@ using SOLID.Contracts.Models;
     {
         Id = 1,
         Total = 50,
-        PaymentMethod = "Paypal",
+        PaymentMethod = "BankTransfer",
         CustomerEmail = "customer@mail.com"
     };
 

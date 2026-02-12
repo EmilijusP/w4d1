@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SOLID.BusinessLogic
 {
-    public class CreditCardPayment : IPaymentProcessor
+    public class CreditCardPayment : IPaymentStrategy
     {
         private readonly ILogger _logger;
 
@@ -16,7 +16,7 @@ namespace SOLID.BusinessLogic
             _logger = logger;
         }
 
-        public void ProcessPayment(decimal total)
+        public void Pay(decimal total)
         {
             var message = $"Paid {total} with credit card";
             _logger.Log(message);
