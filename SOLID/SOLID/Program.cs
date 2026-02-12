@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using SOLID.BusinessLogic;
+using SOLID.BusinessLogic.Decorators;
 using SOLID.Contracts.Models;
 
     var logger = new ConsoleLogger();
 
     var validator = new OrderValidation();
 
-    var paymentMethod = new BankTransferPayment(logger);
+    var paymentMethod = new PaymentLoggingDecorator(new PaymentTimingDecorator(new BankTransferPayment(logger), logger), logger);
 
     var emailNotification = new EmailNotification(logger);
 
