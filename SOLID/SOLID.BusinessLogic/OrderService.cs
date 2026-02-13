@@ -13,15 +13,15 @@ namespace SOLID.BusinessLogic
     {
         private readonly ILogger _logger;
         private readonly IOrderValidation _orderValidation;
-        private readonly IPaymentStrategy _paymentMethod;
+        private readonly IPaymentStrategyFactory _paymentStrategyFactory;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderEventPublisher _orderEventPublisher;
 
-        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategy paymentMethod, IOrderRepository orderRepository, IOrderEventPublisher orderEventPublisher)
+        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategyFactory paymentStrategyFactory, IOrderRepository orderRepository, IOrderEventPublisher orderEventPublisher)
         {
             _logger = logger;
             _orderValidation = orderValidation;
-            _paymentMethod = paymentMethod;
+            _paymentStrategyFactory = paymentStrategyFactory;
             _orderRepository = orderRepository;
             _orderEventPublisher = orderEventPublisher;
         }
@@ -30,7 +30,8 @@ namespace SOLID.BusinessLogic
         {
             _orderValidation.ValidateOrder(order);
 
-            _paymentMethod.Pay(order.Total);
+            var paymentStrategy = _paymentStrategyFactory.SelectPaymentStrategy(order);
+            paymentStrategy.Pay(order.Total);
 
             _orderRepository.SaveOrder(order);
 

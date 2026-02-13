@@ -10,7 +10,7 @@ var myOrder = new Order
 {
     Id = 1,
     Total = 50,
-    PaymentMethod = "BankTransfer",
+    PaymentMethod = "Paypal",
     CustomerEmail = "customer@mail.com"
 };
 
@@ -18,7 +18,7 @@ ILogger logger = new ConsoleLogger();
 
 IOrderValidation validator = new OrderValidation();
 
-IPaymentStrategy paymentMethod = new PaymentLoggingDecorator(new PaymentTimingDecorator(new BankTransferPayment(logger), logger), logger);
+IPaymentStrategyFactory paymentStrategyFactory = new PaymentStrategyFactory(logger);
 
 IOrderRepository orderRepository = new FileOrderRepository();
 
@@ -28,7 +28,7 @@ IOrderObserver auditLogger = new AuditLogger(logger);
 orderEventPublisher.Subscribe(emailNotifier);
 orderEventPublisher.Subscribe(auditLogger);
 
-IOrderService orderService = new OrderService(logger, validator, paymentMethod, orderRepository, orderEventPublisher);
+IOrderService orderService = new OrderService(logger, validator, paymentStrategyFactory, orderRepository, orderEventPublisher);
 
 IOrderFacade orderFacade = new OrderFacade(orderService);
 
