@@ -14,33 +14,28 @@ namespace SOLID.BusinessLogic
         private readonly ILogger _logger;
         private readonly IOrderValidation _orderValidation;
         private readonly IPaymentStrategy _paymentMethod;
-        private readonly IEmailNotification _emailNotification;
         private readonly IOrderRepository _orderRepository;
+        private readonly OrderEventPublisher _orderEventPublisher;
 
-        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategy paymentMethod, IEmailNotification emailNotification, IOrderRepository orderRepository)
+        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategy paymentMethod, IOrderRepository orderRepository, OrderEventPublisher orderEventPublisher)
         {
             _logger = logger;
             _orderValidation = orderValidation;
             _paymentMethod = paymentMethod;
-            _emailNotification = emailNotification;
             _orderRepository = orderRepository;
+            _orderEventPublisher = orderEventPublisher;
         }
 
         public void ProcessOrder(Order order)
         {
-            // Validation
             _orderValidation.ValidateOrder(order);
 
-            // Payment
             _paymentMethod.Pay(order.Total);
 
-            // Notification
-            _emailNotification.SendNotification(order.CustomerEmail);
-
-            // Persistence
             _orderRepository.SaveOrder(order);
 
-            // 
+            _orderEventPublisher.Notify(order);
+
             _logger.Log("Order processed.");
         }
     }

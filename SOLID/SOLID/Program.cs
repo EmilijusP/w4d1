@@ -20,11 +20,15 @@ IOrderValidation validator = new OrderValidation();
 
 IPaymentStrategy paymentMethod = new PaymentLoggingDecorator(new PaymentTimingDecorator(new BankTransferPayment(logger), logger), logger);
 
-IEmailNotification emailNotification = new EmailNotification(logger);
-
 IOrderRepository orderRepository = new FileOrderRepository();
 
-IOrderService orderService = new OrderService(logger, validator, paymentMethod, emailNotification, orderRepository);
+OrderEventPublisher orderEventPublisher = new OrderEventPublisher();
+IOrderObserver emailNotifier = new EmailNotifier(logger);
+IOrderObserver auditLogger = new AuditLogger(logger);
+orderEventPublisher.Subscribe(emailNotifier);
+orderEventPublisher.Subscribe(auditLogger);
+
+IOrderService orderService = new OrderService(logger, validator, paymentMethod, orderRepository, orderEventPublisher);
 
 OrderFacade orderFacade = new OrderFacade(orderService);
 
