@@ -21,11 +21,19 @@ namespace SOLID.BusinessLogic.Decorators
 
         public void Pay(decimal total)
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            _decoratedPayment.Pay(total);
-            stopwatch.Stop();
-            _logger.Log($"Payment was processed in {stopwatch.ElapsedMilliseconds} ms.");
+            if (AppSettings.Instance.EnablePaymentTiming)
+            {
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+                _decoratedPayment.Pay(total);
+                stopwatch.Stop();
+                _logger.Log($"Payment was processed in {stopwatch.ElapsedMilliseconds} ms.");
+            }
+            
+            else
+            {
+                _decoratedPayment.Pay(total);
+            }
         }
 
     }

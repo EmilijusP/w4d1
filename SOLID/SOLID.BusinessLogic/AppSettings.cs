@@ -14,6 +14,8 @@ namespace SOLID.BusinessLogic
 
         public bool EnablePaymentLogging { get; set; } = true;
 
+        public bool EnablePaymentTiming { get; set; } = true;
+
         private AppSettings() { }
 
         public static AppSettings Instance => _instance ??= new AppSettings();

@@ -20,9 +20,17 @@ namespace SOLID.BusinessLogic.Decorators
 
         public void Pay(decimal total)
         {
-            _logger.Log("Starting payment.");
-            _decoratedPayment.Pay(total);
-            _logger.Log("Payment finished.");
+            if (AppSettings.Instance.EnablePaymentLogging)
+            {
+                _logger.Log("Starting payment.");
+                _decoratedPayment.Pay(total);
+                _logger.Log("Payment finished.");
+            }
+
+            else
+            {
+                _decoratedPayment.Pay(total);
+            }
         }
     }
 }
