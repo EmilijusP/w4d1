@@ -16,22 +16,27 @@ namespace SOLID.BusinessLogic
         private readonly IPaymentStrategyFactory _paymentStrategyFactory;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderEventPublisher _orderEventPublisher;
+        private readonly IPaymentPipelineFactory _paymentPipelineFactory;
 
-        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategyFactory paymentStrategyFactory, IOrderRepository orderRepository, IOrderEventPublisher orderEventPublisher)
+        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategyFactory paymentStrategyFactory, IOrderRepository orderRepository, IOrderEventPublisher orderEventPublisher, IPaymentPipelineFactory paymentPipelineFactory)
         {
             _logger = logger;
             _orderValidation = orderValidation;
             _paymentStrategyFactory = paymentStrategyFactory;
             _orderRepository = orderRepository;
             _orderEventPublisher = orderEventPublisher;
+            _paymentPipelineFactory = paymentPipelineFactory;
         }
 
-        public void ProcessOrder(Order order)
+        public async void ProcessOrder(Order order)
         {
             _orderValidation.ValidateOrder(order);
 
             var paymentStrategy = _paymentStrategyFactory.SelectPaymentStrategy(order);
-            paymentStrategy.Pay(order.Total);
+
+            var paymentPipeline = _paymentPipelineFactory.CreatePipeline(paymentStrategy);
+
+            await paymentPipeline.Execute(order.Total);
 
             _orderRepository.SaveOrder(order);
 

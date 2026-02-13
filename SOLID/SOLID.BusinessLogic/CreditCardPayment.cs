@@ -18,8 +18,7 @@ namespace SOLID.BusinessLogic
 
         public void Pay(decimal total)
         {
-            var message = $"Paid {total} with credit card";
-            _logger.Log(message);
+            _logger.Log($"Paid {total} with CreditCard");
         }
     }
 }

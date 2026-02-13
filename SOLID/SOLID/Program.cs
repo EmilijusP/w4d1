@@ -28,7 +28,9 @@ IOrderObserver auditLogger = new AuditLogger(logger);
 orderEventPublisher.Subscribe(emailNotifier);
 orderEventPublisher.Subscribe(auditLogger);
 
-IOrderService orderService = new OrderService(logger, validator, paymentStrategyFactory, orderRepository, orderEventPublisher);
+IPaymentPipelineFactory paymentPipelineFactory = new PaymentPipelineFactory(logger);
+
+IOrderService orderService = new OrderService(logger, validator, paymentStrategyFactory, orderRepository, orderEventPublisher, paymentPipelineFactory);
 
 IOrderFacade orderFacade = new OrderFacade(orderService);
 

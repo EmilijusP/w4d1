@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace SOLID.BusinessLogic
 {
-    public class PaypalPayment : IPaymentStrategy
+    public class PaymentAuditStep : IPaymentStep
     {
         private readonly ILogger _logger;
 
-        public PaypalPayment(ILogger logger)
+        public PaymentAuditStep(ILogger logger)
         {
             _logger = logger;
         }
 
-        public void Pay(decimal total)
+        public async Task Handle(decimal total, Func<Task> next)
         {
-            _logger.Log($"Paid {total} with Paypal");
+            _logger.Log("Payment has been audited.");
+
+            await next();
         }
     }
 }

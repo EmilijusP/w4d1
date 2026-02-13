@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +19,7 @@ namespace SOLID.BusinessLogic
 
         public void Pay(decimal total)
         {
-            var message = $"Paid {total} with Bank Transfer";
-            _logger.Log(message);
+            _logger.Log($"Paid {total} with BankTransfer");
         }
     }
 }
