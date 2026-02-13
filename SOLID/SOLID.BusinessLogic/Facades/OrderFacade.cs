@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SOLID.BusinessLogic.Facades
 {
-    public class OrderFacade
+    public class OrderFacade : IOrderFacade
     {
         private readonly IOrderService _orderService;
 

@@ -15,9 +15,9 @@ namespace SOLID.BusinessLogic
         private readonly IOrderValidation _orderValidation;
         private readonly IPaymentStrategy _paymentMethod;
         private readonly IOrderRepository _orderRepository;
-        private readonly OrderEventPublisher _orderEventPublisher;
+        private readonly IOrderEventPublisher _orderEventPublisher;
 
-        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategy paymentMethod, IOrderRepository orderRepository, OrderEventPublisher orderEventPublisher)
+        public OrderService(ILogger logger, IOrderValidation orderValidation, IPaymentStrategy paymentMethod, IOrderRepository orderRepository, IOrderEventPublisher orderEventPublisher)
         {
             _logger = logger;
             _orderValidation = orderValidation;

@@ -22,7 +22,7 @@ IPaymentStrategy paymentMethod = new PaymentLoggingDecorator(new PaymentTimingDe
 
 IOrderRepository orderRepository = new FileOrderRepository();
 
-OrderEventPublisher orderEventPublisher = new OrderEventPublisher();
+IOrderEventPublisher orderEventPublisher = new OrderEventPublisher();
 IOrderObserver emailNotifier = new EmailNotifier(logger);
 IOrderObserver auditLogger = new AuditLogger(logger);
 orderEventPublisher.Subscribe(emailNotifier);
@@ -30,6 +30,6 @@ orderEventPublisher.Subscribe(auditLogger);
 
 IOrderService orderService = new OrderService(logger, validator, paymentMethod, orderRepository, orderEventPublisher);
 
-OrderFacade orderFacade = new OrderFacade(orderService);
+IOrderFacade orderFacade = new OrderFacade(orderService);
 
 orderFacade.ProcessNewOrder(myOrder);

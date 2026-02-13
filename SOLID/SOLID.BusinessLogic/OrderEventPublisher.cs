@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SOLID.BusinessLogic
 {
-    public class OrderEventPublisher
+    public class OrderEventPublisher : IOrderEventPublisher
     {
         private readonly List<IOrderObserver> _orderObservers;
 
