@@ -1,22 +1,17 @@
 ﻿using AnagramSolver.Contracts.Interfaces;
+using AnagramSolver.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
-using AnagramSolver.Contracts.Models;
 
 namespace AnagramSolver.BusinessLogic.Services
 {
-    public class RecursiveAnagramAlgorithm : IAnagramAlgorithm
+    public class AnagramAlgorithm : IAnagramAlgorithm
     {
-
-        public IList<string> GetAnagrams()
-        {
-
-        }
-
         public List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams)
         {
             var results = new List<List<string>>();
