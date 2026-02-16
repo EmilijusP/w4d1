@@ -43,20 +43,25 @@ namespace AnagramSolver.BusinessLogic.Services
                 return cached;
             }
 
+            // Factory method kad parenka algoritma, jei anagramCount = 1, galima naudoti labai paprasta ir daug greitesni algoritma, jei > 1, tuomet sitas rekursinis.
+
             var inputCharCount = _wordProcessor.CreateCharCount(cleanInput);
 
             var wordSet = await _wordRepository.ReadAllLinesAsync(ct);
 
             var allAnagrams = _anagramDictionaryService.CreateAnagrams(wordSet);
 
+            // Pipeline? Factory pipelinui sukurt
             var filteredAnagrams = allAnagrams.Where(key => _anagramAlgorithm.IsValidOutputLength(key.Key, _settings.MinOutputWordsLength));
             
             var possibleAnagrams = filteredAnagrams.Where(key => _anagramAlgorithm.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
+            //
 
             var keyCombinations = _anagramAlgorithm.FindKeyCombinations(inputCharCount, _settings.AnagramCount, possibleAnagrams);
 
             var anagramList = _anagramAlgorithm.CreateCombinations(keyCombinations, possibleAnagrams);
 
+            // irgi prie pipeline to pacio prijungt?
             var anagramsWithoutInput = anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();
 
             _memoryCache.Add(cleanInput, anagramsWithoutInput);

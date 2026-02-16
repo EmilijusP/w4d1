@@ -17,7 +17,7 @@ builder.Services.AddSingleton<IAppSettings>(settings);
 builder.Services.AddSingleton<IMemoryCache<IEnumerable<string>>, MemoryCache<IEnumerable<string>>>();
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
-builder.Services.AddScoped<IAnagramAlgorithm, AnagramAlgorithm>();
+builder.Services.AddScoped<IAnagramAlgorithm, RecursiveAnagramAlgorithm>();
 builder.Services.AddScoped<IWordRepository, FileWordRepository>();
 builder.Services.AddScoped<IInputValidation, InputValidation>();
 builder.Services.AddScoped<IAnagramSolver, AnagramSolverService>();

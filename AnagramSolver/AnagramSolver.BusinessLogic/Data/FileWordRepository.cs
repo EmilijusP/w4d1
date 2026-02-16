@@ -4,6 +4,9 @@ using AnagramSolver.Contracts.Models;
 
 namespace AnagramSolver.BusinessLogic.Data
 {
+
+    // facade arba adapter, kad kita repositorija irgi veiktu
+
     public class FileWordRepository : IWordRepository
     {
         private readonly IAppSettings _settings;

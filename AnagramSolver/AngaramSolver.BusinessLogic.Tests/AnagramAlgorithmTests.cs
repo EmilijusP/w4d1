@@ -11,7 +11,7 @@ public class AnagramAlgorithmTests
 
     public AnagramAlgorithmTests()
     {
-        _anagramAlgorithm = new AnagramAlgorithm();
+        _anagramAlgorithm = new RecursiveAnagramAlgorithm();
     }
 
     public static IEnumerable<object[]> GetFindKeyCombinationsTestData()

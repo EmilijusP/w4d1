@@ -9,8 +9,13 @@ using AnagramSolver.Contracts.Models;
 
 namespace AnagramSolver.BusinessLogic.Services
 {
-    public class AnagramAlgorithm : IAnagramAlgorithm
+    public class RecursiveAnagramAlgorithm : IAnagramAlgorithm
     {
+
+        public IList<string> GetAnagrams()
+        {
+
+        }
 
         public List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams)
         {

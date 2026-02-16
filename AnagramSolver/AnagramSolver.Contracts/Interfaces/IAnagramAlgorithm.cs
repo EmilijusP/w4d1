@@ -9,13 +9,15 @@ namespace AnagramSolver.Contracts.Interfaces
 {
     public interface IAnagramAlgorithm
     {
-        List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWordsAmount, List<Anagram> anagramModels);
+        IList<string> GetAnagrams();
 
-        List<string> CreateCombinations(List<List<string>> keyCombinations, List<Anagram> possibleAnagrams);
+        //List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWordsAmount, List<Anagram> anagramModels);
 
-        bool CanFitWithin(Dictionary<char, int> letters, Dictionary<char, int> targetLetters);
+        //List<string> CreateCombinations(List<List<string>> keyCombinations, List<Anagram> possibleAnagrams);
 
-        bool IsValidOutputLength(string key, int minOutputWordLength);
+        //bool CanFitWithin(Dictionary<char, int> letters, Dictionary<char, int> targetLetters);
+
+        //bool IsValidOutputLength(string key, int minOutputWordLength);
 
     }
 }

@@ -19,21 +19,6 @@ namespace AnagramSolver.Contracts.Models
 
         public bool TryGet(string key, out T? value)
         {
-            //value = default;
-
-            //if (!string.IsNullOrEmpty(key))
-            //{
-            //    return false;
-            //}
-
-            //if (_cache.TryGetValue(key, out var entries))
-            //{
-            //    value = entries;
-            //    return true;
-            //}
-
-            //return false;
-
             return _cache.TryGetValue(key, out value);
         }
     }
