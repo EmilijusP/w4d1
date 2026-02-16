@@ -11,7 +11,7 @@ namespace AnagramSolver.Tests
     {
         private readonly Mock<IWordProcessor> _mockWordProcessor;
         private readonly Mock<IAnagramDictionaryService> _mockDictionaryService;
-        private readonly Mock<IAnagramAlgorithm> _mockAnagramAlgorithm;
+        private readonly Mock<IComplexAnagramAlgorithm> _mockAnagramAlgorithm;
         private readonly Mock<IWordRepository> _mockWordRepository;
         private readonly Mock<IAppSettings> _mockAppSettings;
         private readonly AnagramSolverService _systemUnderTest;
@@ -20,7 +20,7 @@ namespace AnagramSolver.Tests
         {
             _mockWordProcessor = new Mock<IWordProcessor>();
             _mockDictionaryService = new Mock<IAnagramDictionaryService>();
-            _mockAnagramAlgorithm = new Mock<IAnagramAlgorithm>();
+            _mockAnagramAlgorithm = new Mock<IComplexAnagramAlgorithm>();
             _mockWordRepository = new Mock<IWordRepository>();
             _mockAppSettings = new Mock<IAppSettings>();
 

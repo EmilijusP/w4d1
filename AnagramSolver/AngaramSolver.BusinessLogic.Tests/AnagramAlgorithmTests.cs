@@ -7,11 +7,11 @@ namespace AnagramSolver.BusinessLogic.Tests;
 
 public class AnagramAlgorithmTests
 {
-    private readonly IAnagramAlgorithm _anagramAlgorithm;
+    private readonly IComplexAnagramAlgorithm _anagramAlgorithm;
 
     public AnagramAlgorithmTests()
     {
-        _anagramAlgorithm = new AnagramAlgorithm();
+        _anagramAlgorithm = new ComplexAnagramAlgorithm();
     }
 
     public static IEnumerable<object[]> GetFindKeyCombinationsTestData()

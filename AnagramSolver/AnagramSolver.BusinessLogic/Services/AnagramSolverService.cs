@@ -11,7 +11,7 @@ namespace AnagramSolver.BusinessLogic.Services
     {
         private readonly IWordProcessor _wordProcessor;
         private readonly IAnagramDictionaryService _anagramDictionaryService;
-        private readonly IAnagramAlgorithm _anagramAlgorithm;
+        private readonly IComplexAnagramAlgorithm _anagramAlgorithm;
         private readonly IWordRepository _wordRepository;
         private readonly IAppSettings _settings;
         private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
@@ -19,7 +19,7 @@ namespace AnagramSolver.BusinessLogic.Services
         public AnagramSolverService(
             IWordProcessor wordProcessor,
             IAnagramDictionaryService anagramDictionaryService,
-            IAnagramAlgorithm anagramAlgorithm,
+            IComplexAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
             IAppSettings settings,
             IMemoryCache<IEnumerable<string>> memoryCache

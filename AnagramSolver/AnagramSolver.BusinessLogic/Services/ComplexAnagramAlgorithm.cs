@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.BusinessLogic.Services
 {
-    public class AnagramAlgorithm : IAnagramAlgorithm
+    public class ComplexAnagramAlgorithm : IComplexAnagramAlgorithm
     {
         public List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams)
         {

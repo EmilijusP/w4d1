@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.Contracts.Interfaces
 {
-    public interface IAnagramAlgorithm
+    public interface IComplexAnagramAlgorithm
     {
 
         List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWordsAmount, List<Anagram> anagramModels);
