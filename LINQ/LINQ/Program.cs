@@ -51,3 +51,12 @@ bool isPrime(int number)
 }
 
 Dictionary<int, bool> primeDictionary = numbers.ToDictionary(n => n, n => isPrime(n));
+
+// 3. SelectMany
+var sentences = new List<string> { "LINQ yra galingas", "C# yra puiki kalba", "Generics ir Delegates" };
+
+var sentenceWords = sentences.SelectMany(s => s.Split());
+
+var uniqueWords = sentences.SelectMany(s => s.Split()).Distinct();
+
+Dictionary<string, int> wordRepeats = sentences.SelectMany(s => s.Split()).GroupBy(w => w).ToDictionary(g => g.Key, g => g.Count());
