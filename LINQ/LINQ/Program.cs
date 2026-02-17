@@ -60,3 +60,60 @@ var sentenceWords = sentences.SelectMany(s => s.Split());
 var uniqueWords = sentences.SelectMany(s => s.Split()).Distinct();
 
 Dictionary<string, int> wordRepeats = sentences.SelectMany(s => s.Split()).GroupBy(w => w).ToDictionary(g => g.Key, g => g.Count());
+
+// 4. Join
+var groups = new List<Group>
+{
+    new(1, "Matematika"),
+    new(2, "Informatika"),
+    new(3, "Fizika")
+};
+
+var students = new List<Student>
+{
+    new(1, "Jonas", 2),
+    new(2, "Petras", 1),
+    new(3, "Ona", 2),
+    new(4, "Marytė", 3),
+    new(5, "Antanas", 2)
+};
+
+var joined = students.Join(groups, s => s.GroupId, g => g.Id, (s, g) => new { s, g }) ;
+
+foreach (var student in joined)
+{
+    Console.WriteLine($"Studentas {student.s.Name} yra grupėje {student.g.Name}");
+}
+
+var biggerGroups = groups.GroupJoin(students, g => g.Id, s => s.GroupId, (g, s) => new { g, s }).Where(x => x.s.Count() >= 3);
+
+foreach(var group in biggerGroups)
+{
+    Console.WriteLine(group.g.Name);
+}
+
+// 5. Deferred execution – demonstracija
+List<int> nums = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+
+var evenNums = nums.Where(n => n % 2 == 0); // sudaromas LINQ query, dar nevykdoma, saugoma nuoroda i nums ir delegatas
+
+nums.Add(8); // pridedamas skaicius 8 prie originalaus nums List
+
+foreach (var num in evenNums) // iteruojame LINQ query, todel query ivykdoma (dabar tikrinama ar skaiciai lyginiai)
+{
+    Console.WriteLine(num); // tarp skaiciu bus 8, nes pridejome 8 i nums kol evenNums turejo tik nuoroda nums ir delegata
+}
+
+nums = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+
+var oddNums = nums.Where(n => n % 2 != 0).ToList(); // sudaromas LINQ query ir iskart ivykdomas, nes ToList() privercia filtruoti pagal delegata ir sukurti nauja List objekta atmintyje
+
+nums.Add(9); // pridedamas skaicius 9 prie originalaus nums List
+
+Console.WriteLine($"oddNums has 9 (deferred execution): {oddNums.Contains(9)}"); // tikriname ar oddNums turi skaiciu 9, bus false, nes LINQ query buvo iskarto ivykdyta del ToList()
+
+// Namespace and type declarations
+
+record Student(int Id, string Name, int GroupId);
+
+record Group(int Id, string Name);
