@@ -45,6 +45,19 @@ namespace AnagramSolver.BusinessLogic.Services
 
             return result.ToLower();
         }
+        public bool IsValidOutputLength(string key, int minOutputWordLength)
+        {
+            return key.Length >= minOutputWordLength;
+        }
+
+        public bool CanFitWithin(Dictionary<char, int> letters, Dictionary<char, int> targetLetters)
+        {
+            foreach (var letter in letters)
+                if (!targetLetters.ContainsKey(letter.Key) || letter.Value > targetLetters[letter.Key])
+                    return false;
+
+            return true;
+        }
 
     }
 }

@@ -5,7 +5,7 @@ namespace AnagramSolver.Contracts.Interfaces
 {
     public interface IAnagramSolverAlgorithm
     {
-        List<string> GetAnagrams(
+            IList<string> GetAnagrams(
             Dictionary<char, int> targetLetters,
             int maxWordsAmount,
             List<Anagram> allAnagrams,

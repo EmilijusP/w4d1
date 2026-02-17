@@ -12,6 +12,13 @@ namespace AnagramSolver.BusinessLogic.Services
 {
     public class ComplexAnagramAlgorithm : IComplexAnagramAlgorithm
     {
+        private readonly IWordProcessor _wordProcessor;
+
+        public ComplexAnagramAlgorithm(IWordProcessor wordProcessor)
+        {
+            _wordProcessor = wordProcessor;
+        }
+
         public List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams)
         {
             var results = new List<List<string>>();
@@ -38,7 +45,7 @@ namespace AnagramSolver.BusinessLogic.Services
             {
                 string key = possibleAnagrams[i]?.Key ?? "";
                 var lettersCount = possibleAnagrams[i]?.KeyCharCount ?? new Dictionary<char, int>();
-                if (CanFitWithin(lettersCount, remainingLetters))
+                if (_wordProcessor.CanFitWithin(lettersCount, remainingLetters))
                 {
                     currentCombination.Add(key);
                     RemoveLetters(key, remainingLetters);
@@ -80,15 +87,6 @@ namespace AnagramSolver.BusinessLogic.Services
             }
         }
 
-        public bool CanFitWithin(Dictionary<char, int> letters, Dictionary<char, int> targetLetters)
-        {
-            foreach (var letter in letters)
-                if (!targetLetters.ContainsKey(letter.Key) || letter.Value > targetLetters[letter.Key])
-                    return false;
-
-            return true;
-        }
-
         private bool AllLettersUsed(Dictionary<char, int> remainingLetters)
         {
             foreach (var pair in remainingLetters)
@@ -110,11 +108,6 @@ namespace AnagramSolver.BusinessLogic.Services
         {
             foreach (var character in key)
                 charCountDictionary[character]++;
-        }
-
-        public bool IsValidOutputLength(string key, int minOutputWordLength)
-        {
-            return key.Length >= minOutputWordLength;
         }
     }
 }

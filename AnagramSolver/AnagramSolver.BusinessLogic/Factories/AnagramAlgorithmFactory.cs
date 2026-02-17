@@ -1,30 +1,29 @@
 ﻿using AnagramSolver.Contracts.Interfaces;
 using AnagramSolver.BusinessLogic.Services;
 using System;
+using AnagramSolver.BusinessLogic.Adapters;
 
 namespace AnagramSolver.BusinessLogic.Factories
 {
     public class AnagramAlgorithmFactory : IAnagramAlgorithmFactory
     {
         private readonly IComplexAnagramAlgorithm _complexAlgorithm;
-        private readonly 
+        private readonly IAnagramSolverAlgorithm _simpleAlgorithm;
 
-        public AnagramAlgorithmFactory(IServiceProvider provider)
+        public AnagramAlgorithmFactory(IComplexAnagramAlgorithm complexAlgorithm, IAnagramSolverAlgorithm simpleAlgorithm)
         {
-            _provider = provider;
+            _complexAlgorithm = complexAlgorithm;
+            _simpleAlgorithm = simpleAlgorithm;
         }
 
-        public IAnagramSolverAlgorithm Create(int outputWordsCount)
+        public IAnagramSolverAlgorithm Create(int anagramCount)
         {
-            if (outputWordsCount <= 1)
+            if (anagramCount <= 1)
             {
-                var simple = (IAnagramSolverAlgorithm?)_provider.GetService(typeof(SimpleAnagramAlgorithm));
-                if (simple is not null) return simple;
+                return _simpleAlgorithm;
             }
 
-            // Default to complex algorithm wrapped by an adapter.
-            var complex = (IComplexAnagramAlgorithm)_provider.GetRequiredService(typeof(IComplexAnagramAlgorithm));
-            return new AnagramAlgorithmAdapter(complex);
+            return new ComplexAnagramAlgorithmAdapter(_complexAlgorithm);
         }
     }
 }

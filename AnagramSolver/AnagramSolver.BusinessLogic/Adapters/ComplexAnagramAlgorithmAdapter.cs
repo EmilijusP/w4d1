@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.BusinessLogic.Adapters
 {
-    public class ComplexAnagramAlgorithmAdapter
+    public class ComplexAnagramAlgorithmAdapter : IAnagramSolverAlgorithm
     {
         private readonly IComplexAnagramAlgorithm _complexAnagramAlgorithm;
 

@@ -14,9 +14,5 @@ namespace AnagramSolver.Contracts.Interfaces
 
         List<string> CreateCombinations(List<List<string>> keyCombinations, List<Anagram> possibleAnagrams);
 
-        bool CanFitWithin(Dictionary<char, int> letters, Dictionary<char, int> targetLetters);
-
-        bool IsValidOutputLength(string key, int minOutputWordLength);
-
     }
 }

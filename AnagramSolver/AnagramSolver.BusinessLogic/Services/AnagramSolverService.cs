@@ -11,24 +11,24 @@ namespace AnagramSolver.BusinessLogic.Services
     {
         private readonly IWordProcessor _wordProcessor;
         private readonly IAnagramDictionaryService _anagramDictionaryService;
-        private readonly IComplexAnagramAlgorithm _anagramAlgorithm;
         private readonly IWordRepository _wordRepository;
+        private readonly IAnagramAlgorithmFactory _anagramAlgorithmFactory;
         private readonly IAppSettings _settings;
         private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
 
         public AnagramSolverService(
             IWordProcessor wordProcessor,
             IAnagramDictionaryService anagramDictionaryService,
-            IComplexAnagramAlgorithm anagramAlgorithm,
             IWordRepository wordRepository,
+            IAnagramAlgorithmFactory anagramAlgorithmFactory,
             IAppSettings settings,
             IMemoryCache<IEnumerable<string>> memoryCache
             )
         {
             _wordProcessor = wordProcessor;
             _anagramDictionaryService = anagramDictionaryService;
-            _anagramAlgorithm = anagramAlgorithm;
             _wordRepository = wordRepository;
+            _anagramAlgorithmFactory = anagramAlgorithmFactory;
             _settings = settings;
             _memoryCache = memoryCache;
         }
@@ -43,8 +43,6 @@ namespace AnagramSolver.BusinessLogic.Services
                 return cached;
             }
 
-            // Factory method kad parenka algoritma, jei anagramCount = 1, galima naudoti labai paprasta ir daug greitesni algoritma, jei > 1, tuomet sitas rekursinis.
-
             var inputCharCount = _wordProcessor.CreateCharCount(cleanInput);
 
             var wordSet = await _wordRepository.ReadAllLinesAsync(ct);
@@ -52,14 +50,14 @@ namespace AnagramSolver.BusinessLogic.Services
             var allAnagrams = _anagramDictionaryService.CreateAnagrams(wordSet);
 
             // Pipeline? Factory pipelinui sukurt
-            var filteredAnagrams = allAnagrams.Where(key => _anagramAlgorithm.IsValidOutputLength(key.Key, _settings.MinOutputWordsLength));
+            var filteredAnagrams = allAnagrams.Where(key => _wordProcessor.IsValidOutputLength(key.Key, _settings.MinOutputWordsLength));
             
-            var possibleAnagrams = filteredAnagrams.Where(key => _anagramAlgorithm.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
+            var possibleAnagrams = filteredAnagrams.Where(key => _wordProcessor.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
             //
 
-            var keyCombinations = _anagramAlgorithm.FindKeyCombinations(inputCharCount, _settings.AnagramCount, possibleAnagrams);
+            var algorithm = _anagramAlgorithmFactory.Create(_settings.AnagramCount);
 
-            var anagramList = _anagramAlgorithm.CreateCombinations(keyCombinations, possibleAnagrams);
+            var anagramList = algorithm.GetAnagrams(inputCharCount, _settings.AnagramCount, possibleAnagrams, _settings.MinOutputWordsLength);
 
             // irgi prie pipeline to pacio prijungt?
             var anagramsWithoutInput = anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();

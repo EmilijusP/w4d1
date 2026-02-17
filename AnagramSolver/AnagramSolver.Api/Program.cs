@@ -4,6 +4,7 @@ using AnagramSolver.Contracts.Models;
 using AnagramSolver.BusinessLogic.Data;
 using AnagramSolver.Api.GraphQL;
 using Microsoft.Extensions.Options;
+using AnagramSolver.BusinessLogic.Factories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddSingleton<IMemoryCache<IEnumerable<string>>, MemoryCache<IEn
 builder.Services.AddScoped<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
 builder.Services.AddScoped<IComplexAnagramAlgorithm, ComplexAnagramAlgorithm>();
+builder.Services.AddScoped<IAnagramSolverAlgorithm, SimpleAnagramAlgorithm>();
+builder.Services.AddScoped<IAnagramAlgorithmFactory, AnagramAlgorithmFactory>();
 builder.Services.AddScoped<IWordRepository, FileWordRepository>();
 builder.Services.AddScoped<IInputValidation, InputValidation>();
 builder.Services.AddScoped<IAnagramSolver, AnagramSolverService>();

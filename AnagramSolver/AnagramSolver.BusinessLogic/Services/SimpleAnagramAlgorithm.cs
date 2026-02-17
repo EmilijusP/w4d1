@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.BusinessLogic.Services
 {
-    public class SimpleAnagramAlgorithm : ISimpleAnagramAlgorithm
+    public class SimpleAnagramAlgorithm : IAnagramSolverAlgorithm
     {
         private readonly IWordProcessor _wordProcessor;
 
@@ -30,13 +30,7 @@ namespace AnagramSolver.BusinessLogic.Services
             {
                 string targetKey = CreateKey(targetLetters);
 
-                foreach (var anagram in allAnagrams)
-                {
-                    if (targetKey == anagram.Key)
-                    {
-                        results.Add(anagram.Words.ToString());
-                    }
-                }
+                results = allAnagrams.Where(anagram => anagram.Key == targetKey).SelectMany(anagram => anagram.Words).ToList();
             }
 
             return results;
