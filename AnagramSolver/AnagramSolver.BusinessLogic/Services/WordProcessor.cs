@@ -30,9 +30,8 @@ namespace AnagramSolver.BusinessLogic.Services
 
             stringToProcess = RemoveWhitespace(stringToProcess);
 
-            char[] arr = stringToProcess.ToCharArray();
-            Array.Sort(arr);
-            string sortedString = new string(arr);
+            string sortedString = new string(stringToProcess.OrderBy(c => c).ToArray());
+
             return sortedString;
         }
 
