@@ -11,14 +11,9 @@ namespace AnagramSolver.BusinessLogic.Services
     {
         public Dictionary<char, int> CreateCharCount(string stringToProcess)
         {
-            var charDictionary = new Dictionary<char, int>();
             stringToProcess = RemoveWhitespace(stringToProcess);
-            foreach (var character in stringToProcess.ToLower())
-            {
-                if (!charDictionary.ContainsKey(character))
-                    charDictionary[character] = 0;
-                charDictionary[character]++;
-            }
+
+            Dictionary<char, int> charDictionary = stringToProcess.GroupBy(c => c).ToDictionary(g => g.Key, g => g.Count());
 
             return charDictionary;
         }
