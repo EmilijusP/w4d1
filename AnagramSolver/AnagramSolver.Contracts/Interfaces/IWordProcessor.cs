@@ -14,9 +14,6 @@ namespace AnagramSolver.Contracts.Interfaces
         string SortString(string unsortedString);
 
         string RemoveWhitespace(string stringToProcess);
-
-        bool IsValidOutputLength(string key, int minOutputWordLength);
         
-        bool CanFitWithin(Dictionary<char, int> letters, Dictionary<char, int> targetLetters);
     }
 }

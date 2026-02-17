@@ -5,6 +5,7 @@ using AnagramSolver.BusinessLogic.Data;
 using AnagramSolver.Api.GraphQL;
 using Microsoft.Extensions.Options;
 using AnagramSolver.BusinessLogic.Factories;
+using AnagramSolver.BusinessLogic.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,9 @@ builder.Services.AddScoped<IAnagramSolverAlgorithm, SimpleAnagramAlgorithm>();
 builder.Services.AddScoped<IAnagramAlgorithmFactory, AnagramAlgorithmFactory>();
 builder.Services.AddScoped<IWordRepository, FileWordRepository>();
 builder.Services.AddScoped<IInputValidation, InputValidation>();
+builder.Services.AddTransient<IAnagramFilter, OutputLengthFilter>();
+builder.Services.AddTransient<IAnagramFilter, CharacterFitFilter>();
+builder.Services.AddScoped<IFilterPipeline, FilterPipeline>();
 builder.Services.AddScoped<IAnagramSolver, AnagramSolverService>();
 
 builder.Services.AddGraphQLServer().AddQueryType<Query>();

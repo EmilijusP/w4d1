@@ -1,4 +1,5 @@
-﻿using AnagramSolver.Contracts.Interfaces;
+﻿using AnagramSolver.BusinessLogic.Extensions;
+using AnagramSolver.Contracts.Interfaces;
 using AnagramSolver.Contracts.Models;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,6 @@ namespace AnagramSolver.BusinessLogic.Services
 {
     public class ComplexAnagramAlgorithm : IComplexAnagramAlgorithm
     {
-        private readonly IWordProcessor _wordProcessor;
-
-        public ComplexAnagramAlgorithm(IWordProcessor wordProcessor)
-        {
-            _wordProcessor = wordProcessor;
-        }
-
         public List<List<string>> FindKeyCombinations(Dictionary<char, int> targetLetters, int maxWords, List<Anagram> possibleAnagrams)
         {
             var results = new List<List<string>>();
@@ -45,7 +39,7 @@ namespace AnagramSolver.BusinessLogic.Services
             {
                 string key = possibleAnagrams[i]?.Key ?? "";
                 var lettersCount = possibleAnagrams[i]?.KeyCharCount ?? new Dictionary<char, int>();
-                if (_wordProcessor.CanFitWithin(lettersCount, remainingLetters))
+                if (lettersCount.CanFitWithin(remainingLetters))
                 {
                     currentCombination.Add(key);
                     RemoveLetters(key, remainingLetters);

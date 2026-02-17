@@ -15,6 +15,7 @@ namespace AnagramSolver.BusinessLogic.Services
         private readonly IAnagramAlgorithmFactory _anagramAlgorithmFactory;
         private readonly IAppSettings _settings;
         private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
+        private readonly IFilterPipeline _filterPipeline;
 
         public AnagramSolverService(
             IWordProcessor wordProcessor,
@@ -22,7 +23,8 @@ namespace AnagramSolver.BusinessLogic.Services
             IWordRepository wordRepository,
             IAnagramAlgorithmFactory anagramAlgorithmFactory,
             IAppSettings settings,
-            IMemoryCache<IEnumerable<string>> memoryCache
+            IMemoryCache<IEnumerable<string>> memoryCache,
+            IFilterPipeline filterPipeline
             )
         {
             _wordProcessor = wordProcessor;
@@ -31,6 +33,7 @@ namespace AnagramSolver.BusinessLogic.Services
             _anagramAlgorithmFactory = anagramAlgorithmFactory;
             _settings = settings;
             _memoryCache = memoryCache;
+            _filterPipeline = filterPipeline;
         }
 
         public async Task<IEnumerable<string>> GetAnagramsAsync(string userWords, CancellationToken ct)
@@ -49,15 +52,11 @@ namespace AnagramSolver.BusinessLogic.Services
 
             var allAnagrams = _anagramDictionaryService.CreateAnagrams(wordSet);
 
-            // Pipeline? Factory pipelinui sukurt
-            var filteredAnagrams = allAnagrams.Where(key => _wordProcessor.IsValidOutputLength(key.Key, _settings.MinOutputWordsLength));
-            
-            var possibleAnagrams = filteredAnagrams.Where(key => _wordProcessor.CanFitWithin(key.KeyCharCount, inputCharCount)).ToList();
-            //
+            var filteredAnagrams = _filterPipeline.Execute(allAnagrams, _settings.MinOutputWordsLength, inputCharCount).ToList();
 
             var algorithm = _anagramAlgorithmFactory.Create(_settings.AnagramCount);
 
-            var anagramList = algorithm.GetAnagrams(inputCharCount, _settings.AnagramCount, possibleAnagrams, _settings.MinOutputWordsLength);
+            var anagramList = algorithm.GetAnagrams(inputCharCount, _settings.AnagramCount, filteredAnagrams, _settings.MinOutputWordsLength);
 
             // irgi prie pipeline to pacio prijungt?
             var anagramsWithoutInput = anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();
