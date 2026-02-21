@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AnagramSolver.EF.CodeFirst
+namespace AnagramSolver.EF.CodeFirst.Models
 {
     public class AnagramDbContext : DbContext
     {
