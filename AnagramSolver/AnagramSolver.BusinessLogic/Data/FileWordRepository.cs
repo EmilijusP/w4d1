@@ -60,7 +60,7 @@ namespace AnagramSolver.BusinessLogic.Data
             return result;
         }
 
-        public async Task WriteToFileAsync(WordModel wordModel, CancellationToken ct)
+        public async Task AddLineAsync(WordModel wordModel, CancellationToken ct)
         {
             var line = new List<string> { $"{wordModel.Lemma?.ToLower()}\t{wordModel.Form?.ToLower()}\t{wordModel.Word?.ToLower()}\t{wordModel.Frequency}" };
 

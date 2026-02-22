@@ -7,7 +7,7 @@ namespace AnagramSolver.Contracts.Interfaces
     {
         Task<IEnumerable<WordModel>> ReadAllLinesAsync(CancellationToken ct = default);
 
-        Task WriteToFileAsync(WordModel wordModel, CancellationToken ct = default);
+        Task AddLineAsync(WordModel wordModel, CancellationToken ct = default);
 
         Task<bool> DeleteById(int id, CancellationToken ct = default);
     }

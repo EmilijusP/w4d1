@@ -58,7 +58,7 @@ namespace AnagramSolver.Api.Controllers
             int newId = words.Count() + 1;
             wordModel.Id = newId;
 
-            await _wordRepository.WriteToFileAsync(wordModel, ct);
+            await _wordRepository.AddLineAsync(wordModel, ct);
 
             return Ok();
         }

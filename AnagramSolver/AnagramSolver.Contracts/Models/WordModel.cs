@@ -1,5 +1,8 @@
-﻿namespace AnagramSolver.Contracts.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AnagramSolver.Contracts.Models
 {
+    [Table("Words")]
     public class WordModel
     {
         public int Id { get; set; }
@@ -8,7 +11,7 @@
 
         public string? Form { get; set; } = "-";
 
-        public string? Word { get; set; } = string.Empty;
+        public string? Word { get; set; } = null!;
 
         public int Frequency { get; set; } = 1;
 
