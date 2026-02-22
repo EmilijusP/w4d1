@@ -16,6 +16,7 @@ namespace AnagramSolver.BusinessLogic.Services
         private readonly IAppSettings _settings;
         private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
         private readonly IFilterPipeline _filterPipeline;
+        private readonly ISearchLogRepository _searchLogRepository;
 
         public AnagramSolverService(
             IWordProcessor wordProcessor,
@@ -24,7 +25,8 @@ namespace AnagramSolver.BusinessLogic.Services
             IAnagramAlgorithmFactory anagramAlgorithmFactory,
             IAppSettings settings,
             IMemoryCache<IEnumerable<string>> memoryCache,
-            IFilterPipeline filterPipeline
+            IFilterPipeline filterPipeline,
+            ISearchLogRepository searchLogRepository
             )
         {
             _wordProcessor = wordProcessor;
@@ -34,6 +36,7 @@ namespace AnagramSolver.BusinessLogic.Services
             _settings = settings;
             _memoryCache = memoryCache;
             _filterPipeline = filterPipeline;
+            _searchLogRepository = searchLogRepository;
         }
 
         public async Task<IEnumerable<string>> GetAnagramsAsync(string userWords, CancellationToken ct)
@@ -62,6 +65,8 @@ namespace AnagramSolver.BusinessLogic.Services
             var anagramsWithoutInput = anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();
 
             _memoryCache.Add(cleanInput, anagramsWithoutInput);
+
+            await _searchLogRepository.AddSearchLogAsync(userWords, anagramsWithoutInput.Count(), ct);
 
             return anagramsWithoutInput;
         }

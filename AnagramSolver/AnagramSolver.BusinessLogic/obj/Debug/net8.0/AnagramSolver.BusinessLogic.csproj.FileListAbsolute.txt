@@ -14,3 +14,5 @@ C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.BusinessL
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.BusinessLogic\obj\Debug\net8.0\refint\AnagramSolver.BusinessLogic.dll
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.BusinessLogic\obj\Debug\net8.0\AnagramSolver.BusinessLogic.pdb
 C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.BusinessLogic\obj\Debug\net8.0\ref\AnagramSolver.BusinessLogic.dll
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.BusinessLogic\bin\Debug\net8.0\AnagramSolver.BusinessLogic.runtimeconfig.json
+C:\Users\emilijus.pocius\source\repos\w1d1\AnagramSolver\AnagramSolver.BusinessLogic\obj\Debug\net8.0\AnagramSolver.BusinessLogic.genruntimeconfig.cache

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.BusinessLogic.Data
 {
-    public class EfWordRepository : IWordRepository
+    public class EfWordRepository : IWordRepository, ISearchLogRepository
     {
         private readonly AnagramDbContext _context;
 
@@ -23,9 +23,9 @@ namespace AnagramSolver.BusinessLogic.Data
             return await _context.Words.ToListAsync();
         }
 
-        public async Task AddLineAsync(WordModel wordModel, CancellationToken ct)
+        public async Task AddWordAsync(WordModel wordModel, CancellationToken ct)
         {
-            await _context.AddAsync(wordModel, ct);
+            await _context.Words.AddAsync(wordModel, ct);
 
             await _context.SaveChangesAsync(ct);
         }
@@ -46,5 +46,17 @@ namespace AnagramSolver.BusinessLogic.Data
             return true;
         }
 
+        public async Task AddSearchLogAsync(string input, int resultCount, CancellationToken ct)
+        {
+            var log = new SearchLog
+            {
+                SearchText = input,
+                ResultCount = resultCount,
+                SearchedAt = DateTime.Now
+            };
+
+            await _context.SearchLog.AddAsync(log, ct);
+            await _context.SaveChangesAsync(ct);
+        }
     }
 }
