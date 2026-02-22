@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnagramSolver.Cli")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9146f68465ac9b503f0455310def6a0a5f31233")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1a453b8b1b9817c37b54d408a734035a39e24e17")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnagramSolver.Cli")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnagramSolver.Cli")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
