@@ -56,7 +56,7 @@ namespace AnagramSolver.BusinessLogic.Services
         {
             var results = new List<string>();
 
-            var anagramDic = possibleAnagrams.ToDictionary(anagram => anagram.Key, anagram => anagram.Words);
+            var anagramDic = possibleAnagrams.ToDictionary(anagram => anagram.Key!, anagram => anagram.Words!);
 
             foreach (var keyCombination in keyCombinations)
                 RecursiveCombinationCreator(keyCombination, anagramDic, 0, new List<string>(), results);

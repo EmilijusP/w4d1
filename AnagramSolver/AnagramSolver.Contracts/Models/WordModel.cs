@@ -2,7 +2,6 @@
 
 namespace AnagramSolver.Contracts.Models
 {
-    [Table("Words")]
     public class WordModel
     {
         public int Id { get; set; }

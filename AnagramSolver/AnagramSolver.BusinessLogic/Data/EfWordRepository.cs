@@ -55,7 +55,7 @@ namespace AnagramSolver.BusinessLogic.Data
                 SearchedAt = DateTime.Now
             };
 
-            await _context.SearchLog.AddAsync(log, ct);
+            await _context.SearchLogs.AddAsync(log, ct);
             await _context.SaveChangesAsync(ct);
         }
     }

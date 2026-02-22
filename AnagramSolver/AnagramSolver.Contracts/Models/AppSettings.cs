@@ -14,5 +14,7 @@ namespace AnagramSolver.Contracts.Models
 
         public int MinOutputWordsLength { get; set; }
 
+        public string? ConnectionString { get; set; }
+
     }
 }

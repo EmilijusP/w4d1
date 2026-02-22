@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "/vMTWsH8Jag=",
+  "dgSpecHash": "4GCUY5xZKEg=",
   "success": true,
   "projectFilePath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AnagramSolver.Cli\\AnagramSolver.Cli.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\emilijus.pocius\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.7\\microsoft.data.sqlclient.5.1.7.nupkg.sha512",

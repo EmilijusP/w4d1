@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "St4l2zxOoe0=",
+  "dgSpecHash": "SFnaeaVKXH8=",
   "success": true,
   "projectFilePath": "C:\\Users\\emilijus.pocius\\source\\repos\\w1d1\\AnagramSolver\\AnagramSolver.WebApp\\AnagramSolver.WebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\chillicream.nitro.app\\28.0.7\\chillicream.nitro.app.28.0.7.nupkg.sha512",
+    "C:\\Users\\emilijus.pocius\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\greendonut\\15.1.12\\greendonut.15.1.12.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\greendonut.abstractions\\15.1.12\\greendonut.abstractions.15.1.12.nupkg.sha512",
     "C:\\Users\\emilijus.pocius\\.nuget\\packages\\greendonut.data\\15.1.12\\greendonut.data.15.1.12.nupkg.sha512",

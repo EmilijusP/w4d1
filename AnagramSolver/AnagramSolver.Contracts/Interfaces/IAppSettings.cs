@@ -18,5 +18,7 @@ namespace AnagramSolver.Contracts.Interfaces
 
         int MinOutputWordsLength { get; }
 
+        string ConnectionString { get; }
+
     }
 }
