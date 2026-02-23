@@ -20,7 +20,11 @@ namespace AnagramSolver.BusinessLogic.Data
 
         public async Task<IEnumerable<WordModel>> ReadAllLinesAsync(CancellationToken ct)
         {
-            return await _context.Words.ToListAsync();
+            var query = "SELECT Lemma, Form, Word, Frequency FROM Words";
+
+            return await _context.Database.SqlQueryRaw<WordModel>(query).ToListAsync(ct);
+
+            //return await _context.Words.ToListAsync();
         }
 
         public async Task AddWordAsync(WordModel wordModel, CancellationToken ct)
