@@ -1,4 +1,5 @@
-﻿using AnagramSolver.Contracts.Models;
+﻿using AnagramSolver.Contracts.Interfaces;
+using AnagramSolver.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,13 @@ namespace AnagramSolver.BusinessLogic.Data
 {
     public class AnagramDbContext : DbContext
     {
+        private readonly IAppSettings _settings;
+
+        public AnagramDbContext(IAppSettings settings)
+        {
+            _settings = settings;
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -56,6 +64,6 @@ namespace AnagramSolver.BusinessLogic.Data
         public DbSet<SearchLog> SearchLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=.\\SQLEXPRESS;Database=AnagramSolver_DB;Trusted_Connection=True;TrustServerCertificate=True");
+            => options.UseSqlServer(_settings.ConnectionString);
     }
 }
