@@ -62,24 +62,5 @@ namespace AnagramSolver.BusinessLogic.Services
             dictionary[key] = anagram;
 
         }
-
-        public async Task<bool> AddWordAsync(string word, CancellationToken ct)
-        {
-            var wordModel = new WordModel { Word = word };
-
-            var inputIsValid = await _inputValidation.IsValidWriteToFileInputAsync(wordModel, ct);
-
-            if (!inputIsValid)
-            {
-                return false;
-            }
-
-            else
-            {
-                wordModel.Word = _wordProcessor.RemoveWhitespace(wordModel.Word).ToLower();
-                await _wordRepository.AddWordAsync(wordModel, ct);
-                return true;
-            }
-        }
     }
 }

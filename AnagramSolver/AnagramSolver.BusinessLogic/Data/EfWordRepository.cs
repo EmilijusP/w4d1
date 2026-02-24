@@ -18,6 +18,7 @@ namespace AnagramSolver.BusinessLogic.Data
             _context = context;
         }
 
+        // GetWordsByLength?    SELECT Word FROM Words WHERE Word <= @InputLength
         public async Task<IEnumerable<WordModel>> ReadAllLinesAsync(CancellationToken ct)
         {
             var query = "SELECT Lemma, Form, Word, Frequency FROM Words";

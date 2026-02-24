@@ -28,7 +28,7 @@ namespace SOLID.BusinessLogic
             _paymentPipelineFactory = paymentPipelineFactory;
         }
 
-        public async void ProcessOrder(Order order)
+        public async Task ProcessOrder(Order order)
         {
             _orderValidation.ValidateOrder(order);
 

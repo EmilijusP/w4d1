@@ -9,6 +9,6 @@ namespace SOLID.Contracts.Interfaces
 {
     public interface IOrderService
     {
-        void ProcessOrder(Order order);
+        Task ProcessOrder(Order order);
     }
 }

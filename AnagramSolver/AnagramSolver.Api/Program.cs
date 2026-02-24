@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 var settings = builder.Configuration.GetSection("Settings").Get<AppSettings>();
 builder.Services.AddSingleton<IAppSettings>(settings);
 builder.Services.AddSingleton<IMemoryCache<IEnumerable<string>>, MemoryCache<IEnumerable<string>>>();
-builder.Services.AddScoped<IWordProcessor, WordProcessor>();
+builder.Services.AddSingleton<IWordProcessor, WordProcessor>();
 builder.Services.AddScoped<IAnagramDictionaryService, AnagramDictionaryService>();
 builder.Services.AddScoped<IComplexAnagramAlgorithm, ComplexAnagramAlgorithm>();
 builder.Services.AddScoped<IAnagramSolverAlgorithm, SimpleAnagramAlgorithm>();
@@ -31,6 +31,8 @@ builder.Services.AddTransient<IAnagramFilter, OutputLengthFilter>();
 builder.Services.AddTransient<IAnagramFilter, CharacterFitFilter>();
 builder.Services.AddScoped<IFilterPipeline, FilterPipeline>();
 builder.Services.AddScoped<IAnagramSolver, AnagramSolverService>();
+builder.Services.AddScoped<IInputNormalization, InputNormalizationService>();
+builder.Services.AddScoped<IAnagramFinder, AnagramFinder>();
 
 builder.Services.AddGraphQLServer().AddQueryType<Query>();
 

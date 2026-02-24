@@ -9,66 +9,42 @@ namespace AnagramSolver.BusinessLogic.Services
 {
     public class AnagramSolverService: IAnagramSolver
     {
-        private readonly IWordProcessor _wordProcessor;
-        private readonly IAnagramDictionaryService _anagramDictionaryService;
-        private readonly IWordRepository _wordRepository;
-        private readonly IAnagramAlgorithmFactory _anagramAlgorithmFactory;
-        private readonly IAppSettings _settings;
         private readonly IMemoryCache<IEnumerable<string>> _memoryCache;
-        private readonly IFilterPipeline _filterPipeline;
         private readonly ISearchLogRepository _searchLogRepository;
+        private readonly IInputNormalization _inputNormalization;
+        private readonly IAnagramFinder _anagramFinder;
 
         public AnagramSolverService(
-            IWordProcessor wordProcessor,
-            IAnagramDictionaryService anagramDictionaryService,
-            IWordRepository wordRepository,
-            IAnagramAlgorithmFactory anagramAlgorithmFactory,
-            IAppSettings settings,
             IMemoryCache<IEnumerable<string>> memoryCache,
-            IFilterPipeline filterPipeline,
-            ISearchLogRepository searchLogRepository
+            ISearchLogRepository searchLogRepository,
+            IInputNormalization inputNormalization,
+            IAnagramFinder anagramFinder
             )
         {
-            _wordProcessor = wordProcessor;
-            _anagramDictionaryService = anagramDictionaryService;
-            _wordRepository = wordRepository;
-            _anagramAlgorithmFactory = anagramAlgorithmFactory;
-            _settings = settings;
             _memoryCache = memoryCache;
-            _filterPipeline = filterPipeline;
             _searchLogRepository = searchLogRepository;
+            _inputNormalization = inputNormalization;
+            _anagramFinder = anagramFinder;
         }
 
-        public async Task<IEnumerable<string>> GetAnagramsAsync(string userWords, CancellationToken ct)
+        //testus padaryti
+        public async Task<IEnumerable<string>> GetAnagramsAsync(string userInput, CancellationToken ct)
         {
-            var cleanInput = _wordProcessor.RemoveWhitespace(userWords);
 
-            IEnumerable<string> value;
-            if (_memoryCache.TryGet(cleanInput, out var cached))
+            if (_memoryCache.TryGet(userInput, out var cached))
             {
                 return cached;
             }
 
-            var inputCharCount = _wordProcessor.CreateCharCount(cleanInput);
+            var inputCharCount = _inputNormalization.NormalizeInput(userInput);
 
-            var wordSet = await _wordRepository.ReadAllLinesAsync(ct);
+            var anagrams = await _anagramFinder.FindAnagramsAsync(inputCharCount, userInput, ct);
 
-            var allAnagrams = _anagramDictionaryService.CreateAnagrams(wordSet);
+            _memoryCache.Add(userInput, anagrams);
 
-            var filteredAnagrams = _filterPipeline.Execute(allAnagrams, _settings.MinOutputWordsLength, inputCharCount).ToList();
+            await _searchLogRepository.AddSearchLogAsync(userInput, anagrams.Count(), ct);
 
-            var algorithm = _anagramAlgorithmFactory.Create(_settings.AnagramCount);
-
-            var anagramList = algorithm.GetAnagrams(inputCharCount, _settings.AnagramCount, filteredAnagrams, _settings.MinOutputWordsLength);
-
-            // irgi prie pipeline to pacio prijungt?
-            var anagramsWithoutInput = anagramList.Where(anagram => !string.Equals(_wordProcessor.RemoveWhitespace(anagram), cleanInput)).ToList();
-
-            _memoryCache.Add(cleanInput, anagramsWithoutInput);
-
-            await _searchLogRepository.AddSearchLogAsync(userWords, anagramsWithoutInput.Count(), ct);
-
-            return anagramsWithoutInput;
+            return anagrams;
         }
     }
 }
